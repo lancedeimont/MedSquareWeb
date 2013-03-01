@@ -18,7 +18,7 @@ and open the template in the editor.
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
     </head>
     <body style="background-color: #000 ">
-        <div><button id="butOpen">Open</button></div>
+        <div style="background-color: #f0f0f0 ;width:100%"><button id="butOpen" >Open</button></div>
         
         <div style="float: left; width: 30%;height: 100%">
             <div id="axialSlice" style="height:33%; margin: 2px">axial</div>
@@ -93,18 +93,18 @@ and open the template in the editor.
             guiCoronal=foldNavigation.add(volume, 'indexZ',0,volume.dimensions[2]-1).name('coronal');
             
             // .. configure the volume rendering opacity
-            var opacityController = foldOther.add(volume, 'opacity', 0, 1);
+            guiOpacityController = foldOther.add(volume, 'opacity', 0, 1);
               
-            var vrController = foldOther.add(volume, 'volumeRendering');
+            guiVolumeController = foldOther.add(volume, 'volumeRendering');
             
             //controls for the window and level
-            var lowerThresholdController = foldWinLevel.add(volume, 'lowerThreshold',
+            guiLowerThresholdController = foldWinLevel.add(volume, 'lowerThreshold',
                 volume.min, volume.max);
-            var upperThresholdController = foldWinLevel.add(volume, 'upperThreshold',
+            guiUpperThresholdController = foldWinLevel.add(volume, 'upperThreshold',
                 volume.min, volume.max);
-            var lowerWindowController = foldWinLevel.add(volume, 'windowLow', volume.min,
+            guiLowerWindowController = foldWinLevel.add(volume, 'windowLow', volume.min,
                 volume.max);
-            var upperWindowController = foldWinLevel.add(volume, 'windowHigh', volume.min,
+            guiUpperWindowController = foldWinLevel.add(volume, 'windowHigh', volume.min,
                 volume.max);
                 
             foldNavigation.open();
@@ -126,10 +126,22 @@ and open the template in the editor.
                   threeD.add(volume);
                   threeD.render();
                 }  
-                
-                guiAxial.max(volume.dimensions[0]-1);
+                updateGUI();                
             }; 
-            
+            function updateGUI(){
+                //setting max values to the index of slices
+                guiAxial.max(volume.dimensions[0]-1);
+                guiSagital.max(volume.dimensions[1]-1);
+                guiCoronal.max(volume.dimensions[2]-1);
+                
+                var minv=volume.min;
+                var maxv=volume.max;
+                //setting the max and min values for the window level controls
+                guiLowerThresholdController.min(minv).max(maxv).setValue(minv);
+                guiUpperThresholdController.min(minv).max(maxv).setValue(maxv);
+                guiLowerWindowController.min(minv).max(maxv).setValue(minv);
+                guiUpperWindowController.min(minv).max(maxv).setValue(maxv);
+            }
             };
             
             </script>
