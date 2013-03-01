@@ -54,17 +54,17 @@ and open the template in the editor.
             // .. for the X orientation
             sliceX = new X.renderer2D();
             sliceX.container = 'axialSlice';
-            sliceX.orientation = 'X';
+            sliceX.orientation = 'Z';
             sliceX.init();
             // .. for Y
             sliceY = new X.renderer2D();
             sliceY.container = 'sagitalSlice';
-            sliceY.orientation = 'Y';
+            sliceY.orientation = 'X';
             sliceY.init();
             // .. and for Z
             sliceZ = new X.renderer2D();
             sliceZ.container = 'coronalSlice';
-            sliceZ.orientation = 'Z';
+            sliceZ.orientation = 'Y';
             sliceZ.init();
             
             //
@@ -90,9 +90,9 @@ and open the template in the editor.
             foldOther=gui.addFolder('Processes');
             
             //slices controls
-            guiAxial=foldNavigation.add(volume, 'indexX',0,volume.dimensions[0]-1).name('axial');
-            guiSagital=foldNavigation.add(volume, 'indexY',0,volume.dimensions[1]-1).name('sagital');
-            guiCoronal=foldNavigation.add(volume, 'indexZ',0,volume.dimensions[2]-1).name('coronal');
+            guiAxial=foldNavigation.add(volume, 'indexZ',0,volume.dimensions[2]-1).name('axial');
+            guiSagital=foldNavigation.add(volume, 'indexX',0,volume.dimensions[0]-1).name('sagital');
+            guiCoronal=foldNavigation.add(volume, 'indexY',0,volume.dimensions[1]-1).name('coronal');
             
             // .. configure the volume rendering opacity
             guiOpacityController = foldOther.add(volume, 'opacity', 0, 1);
@@ -132,9 +132,9 @@ and open the template in the editor.
             }; 
             function updateGUI(){
                 //setting max values to the index of slices and the current index
-                guiAxial.max(volume.dimensions[0]-1).setValue(volume.indexX);
-                guiSagital.max(volume.dimensions[1]-1).setValue(volume.indexY);
-                guiCoronal.max(volume.dimensions[2]-1).setValue(volume.indexZ);
+                guiAxial.max(volume.dimensions[2]-1).setValue(volume.indexZ);
+                guiSagital.max(volume.dimensions[0]-1).setValue(volume.indexX);
+                guiCoronal.max(volume.dimensions[1]-1).setValue(volume.indexY);
                 
                 var minv=volume.min;
                 var maxv=volume.max;
