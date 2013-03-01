@@ -22,9 +22,9 @@ and open the template in the editor.
         
         <div style="float: left; width: 30%;height: 100%">
             <br/>
-            <div id="axialSlice" style="height:33%; margin: 2px">axial</div>
-            <div id="sagitalSlice" style="height:33%; margin: 2px">sagital</div>
-            <div id="coronalSlice" style="height:33%; margin: 2px">coronal</div>      
+            <div id="axialSlice" style="height:33%; margin: 2px;border-right: solid yellow">axial</div>
+            <div id="sagitalSlice" style="height:33%; margin: 2px; border-right: solid red">sagital</div>
+            <div id="coronalSlice" style="height:33%; margin: 2px; border-right: solid green">coronal</div>      
         </div>
         <div id="3Dslice" style="float:left; width: 50%; height: 500px">            
             <br/>
@@ -57,12 +57,12 @@ and open the template in the editor.
             sliceX.orientation = 'X';
             sliceX.init();
             // .. for Y
-            var sliceY = new X.renderer2D();
+            sliceY = new X.renderer2D();
             sliceY.container = 'sagitalSlice';
             sliceY.orientation = 'Y';
             sliceY.init();
             // .. and for Z
-            var sliceZ = new X.renderer2D();
+            sliceZ = new X.renderer2D();
             sliceZ.container = 'coronalSlice';
             sliceZ.orientation = 'Z';
             sliceZ.init();
@@ -131,10 +131,10 @@ and open the template in the editor.
                 updateGUI();                
             }; 
             function updateGUI(){
-                //setting max values to the index of slices
-                guiAxial.max(volume.dimensions[0]-1);
-                guiSagital.max(volume.dimensions[1]-1);
-                guiCoronal.max(volume.dimensions[2]-1);
+                //setting max values to the index of slices and the current index
+                guiAxial.max(volume.dimensions[0]-1).setValue(volume.indexX);
+                guiSagital.max(volume.dimensions[1]-1).setValue(volume.indexY);
+                guiCoronal.max(volume.dimensions[2]-1).setValue(volume.indexZ);
                 
                 var minv=volume.min;
                 var maxv=volume.max;
