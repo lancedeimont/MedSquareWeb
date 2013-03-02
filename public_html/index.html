@@ -18,7 +18,9 @@ and open the template in the editor.
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
     </head>
     <body style="background-color: #000 ">
-        <div style="background-color: #f0f0f0 ;width:100%"><button id="butOpen" >Open</button></div>
+        <div style="background-color: #f0f0f0 ;width:100%">
+            <button id="butOpen" onclick='loadFileImage()' >Open</button>
+        </div>
         
         <div style="float: left; width: 30%;height: 100%">
             <br/>
@@ -32,18 +34,15 @@ and open the template in the editor.
                  style="height:33%; margin: 2px; border-right: solid green;margin-right: 10px">
                 coronal</div>      
         </div>
-        <div style="float: left;width: 5%;height:100%"></div>
+        
         <div id="3Dslice" style="float:left; width: 50%; height: 500px">            
             <br/>
         </div>
         
         <script> 
             window.onload = function() {
-
-            //
-            // try to create the 3D renderer
-            //
-
+            
+            // try to create the 3D renderer            
             _webGLFriendly = true;
             try {
                 // try to create and initialize a 3D renderer
@@ -56,23 +55,24 @@ and open the template in the editor.
                 _webGLFriendly = false;
 
             }
-            //
+            
             // create the 2D renderers
-            // .. for the X orientation
-            sliceX = new X.renderer2D();
-            sliceX.container = 'axialSlice';
-            sliceX.orientation = 'Z';
-            sliceX.init();
-            // .. for Y
-            sliceY = new X.renderer2D();
-            sliceY.container = 'sagitalSlice';
-            sliceY.orientation = 'X';
-            sliceY.init();
-            // .. and for Z
-            sliceZ = new X.renderer2D();
-            sliceZ.container = 'coronalSlice';
-            sliceZ.orientation = 'Y';
-            sliceZ.init();
+            // here the axial, sagittal and coronal slices corresponds
+            // to Z,X,Y orientations resepectively
+            sliceAxial = new X.renderer2D();
+            sliceAxial.container = 'axialSlice';
+            sliceAxial.orientation = 'Z';
+            sliceAxial.init();
+            //sagital
+            sliceSagittal = new X.renderer2D();
+            sliceSagittal.container = 'sagitalSlice';
+            sliceSagittal.orientation = 'X';
+            sliceSagittal.init();
+            //coronal
+            sliceCoronal = new X.renderer2D();
+            sliceCoronal.container = 'coronalSlice';
+            sliceCoronal.orientation = 'Y';
+            sliceCoronal.init();
             
             //
             // THE VOLUME DATA
@@ -81,15 +81,13 @@ and open the template in the editor.
             volume = new X.volume();
             volume.file = 'data/sivT1.nii';//'http://x.babymri.org/?vol.nrrd';
             
-            sliceX.add(volume);
+            sliceAxial.add(volume);
   
             // start the loading/rendering
-            sliceX.render();
+            sliceAxial.render();
             
             //building the interfaces
             gui = new dat.GUI();
-
-
             
             //creating containers for the controls
             foldNavigation = gui.addFolder('Slice navigation');
@@ -97,9 +95,12 @@ and open the template in the editor.
             foldOther=gui.addFolder('Processes');
             
             //slices controls
-            guiAxial=foldNavigation.add(volume, 'indexZ',0,volume.dimensions[2]-1).name('axial');
-            guiSagital=foldNavigation.add(volume, 'indexX',0,volume.dimensions[0]-1).name('sagittal');
-            guiCoronal=foldNavigation.add(volume, 'indexY',0,volume.dimensions[1]-1).name('coronal');
+            guiAxial=foldNavigation.add(volume, 'indexZ',0,
+                volume.dimensions[2]-1).name('axial');
+            guiSagital=foldNavigation.add(volume, 'indexX',0,
+                volume.dimensions[0]-1).name('sagittal');
+            guiCoronal=foldNavigation.add(volume, 'indexY',0,
+                volume.dimensions[1]-1).name('coronal');
             
             // .. configure the volume rendering opacity
             guiOpacityController = foldOther.add(volume, 'opacity', 0, 1);
@@ -122,14 +123,14 @@ and open the template in the editor.
             
             // the onShowtime method gets executed after all files were fully loaded and
             // just before the first rendering attempt
-            sliceX.onShowtime = function() {
+            sliceAxial.onShowtime = function() {
                 //
                 // add the volume to the other 3 renderers
                 //
-                sliceY.add(volume);
-                sliceY.render();
-                sliceZ.add(volume);
-                sliceZ.render();
+                sliceSagittal.add(volume);
+                sliceSagittal.render();
+                sliceCoronal.add(volume);
+                sliceCoronal.render();
 
                 if (_webGLFriendly) {
                   threeD.add(volume);
@@ -137,6 +138,8 @@ and open the template in the editor.
                 }  
                 updateGUI();                
             }; 
+            
+            //update all GUI controls created with dat-gui
             function updateGUI(){
                 //setting max values to the index of slices and the current index
                 guiAxial.max(volume.dimensions[2]-1).setValue(volume.indexZ);
@@ -150,7 +153,20 @@ and open the template in the editor.
                 guiUpperThresholdController.min(minv).max(maxv).setValue(maxv);
                 guiLowerWindowController.min(minv).max(maxv).setValue(minv);
                 guiUpperWindowController.min(minv).max(maxv).setValue(maxv);
-            }
+            };
+            function loadFileImage(){
+                alert('leyendo');
+                volume.file = 'http://x.babymri.org/?vol.nrrd'; 
+                sliceAxial.destroy();
+                sliceAxial = new X.renderer2D();
+                sliceAxial.container = 'axialSlice';
+                sliceAxial.orientation = 'Z';
+                sliceAxial.init();
+                sliceAxial.add(volume); 
+                sliceAxial.render();
+                updateGUI();
+            };
+            
             };
             
             </script>
