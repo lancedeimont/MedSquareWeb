@@ -138,7 +138,7 @@ and open the template in the editor.
                 //
                 // add the volume to the other 3 renderers
                 //
-                alert('onShowtime');
+                //alert('onShowtime');
                 sliceSagittal.add(volume);
                 sliceSagittal.render();
                 sliceCoronal.add(volume);
@@ -160,7 +160,7 @@ and open the template in the editor.
                 
                 var minv=volume.min;
                 var maxv=volume.max;
-                alert(maxv);
+                //alert(maxv);
                 //setting the max and min values for the window level controls
                 guiLowerThresholdController.min(minv).max(maxv).setValue(minv);
                 guiUpperThresholdController.min(minv).max(maxv).setValue(maxv);
@@ -171,14 +171,14 @@ and open the template in the editor.
                loadFileImage();
             });
             function loadFileImage(){
-                alert('leyendo');
+                //alert('leyendo');
                 volume=new X.volume();
                 volume.file = 'http://x.babymri.org/?vol.nrrd';//'data/vessels.nii';
-                sliceAxial.destroy();
-                sliceAxial = new X.renderer2D();
-                sliceAxial.container = 'axialSlice';
-                sliceAxial.orientation = 'Z';
-                sliceAxial.init();
+                //sliceAxial.destroy();
+                //sliceAxial = new X.renderer2D();
+                //sliceAxial.container = 'axialSlice';
+                //sliceAxial.orientation = 'Z';
+                //sliceAxial.init();
                 sliceAxial.add(volume);
                 //sliceSagittal.add(volume);
                 //sliceCoronal.add(volume);
