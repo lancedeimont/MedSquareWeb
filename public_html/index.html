@@ -7,19 +7,30 @@ and open the template in the editor.
     <head>
         <title>MedSquare Web</title> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- using web libraries
         <script type="text/javascript" src="http://get.goXTK.com/xtk.js"></script>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+        -->
+        
+        <script type="text/javascript" src="xtk.js"></script>
+        <link rel="stylesheet" href="jquery-ui.css" />
+        <script src="jquery-1.9.1.js"></script>
+        <script src="jquery-ui.js"></script>
         
         <link rel="stylesheet" href="CSS/main.css">
         <link rel="stylesheet" href="CSS/normalize.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="dat.gui.js"> </script>
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+        
     </head>
     <body style="background-color: #000 ">
         <div style="background-color: #f0f0f0 ;width:100%">
-            <button id="butOpen" onclick='loadFileImage()' >Open</button>
+            <!--<form>
+                <input type="button" onclick="xx();" value="Open"/>                
+            </form>-->
+            <button id="btnOpen">Open</button>
         </div>
         
         <div style="float: left; width: 30%;height: 100%">
@@ -79,7 +90,7 @@ and open the template in the editor.
             //
             // create a X.volume
             volume = new X.volume();
-            volume.file = 'data/sivT1.nii';//'http://x.babymri.org/?vol.nrrd';
+            volume.file = 'data/sivT1.nii'; // 'http://x.babymri.org/?vol.nrrd'; //'sivT1.nii'; //'data/vessels.nii';//sivT1.nii';//'http://x.babymri.org/?vol.nrrd';
             
             sliceAxial.add(volume);
   
@@ -127,6 +138,7 @@ and open the template in the editor.
                 //
                 // add the volume to the other 3 renderers
                 //
+                alert('onShowtime');
                 sliceSagittal.add(volume);
                 sliceSagittal.render();
                 sliceCoronal.add(volume);
@@ -148,27 +160,34 @@ and open the template in the editor.
                 
                 var minv=volume.min;
                 var maxv=volume.max;
+                alert(maxv);
                 //setting the max and min values for the window level controls
                 guiLowerThresholdController.min(minv).max(maxv).setValue(minv);
                 guiUpperThresholdController.min(minv).max(maxv).setValue(maxv);
                 guiLowerWindowController.min(minv).max(maxv).setValue(minv);
                 guiUpperWindowController.min(minv).max(maxv).setValue(maxv);
             };
+            $("#btnOpen").click(function(){
+               loadFileImage();
+            });
             function loadFileImage(){
                 alert('leyendo');
-                volume.file = 'http://x.babymri.org/?vol.nrrd'; 
+                volume=new X.volume();
+                volume.file = 'http://x.babymri.org/?vol.nrrd';//'data/vessels.nii';
                 sliceAxial.destroy();
                 sliceAxial = new X.renderer2D();
                 sliceAxial.container = 'axialSlice';
                 sliceAxial.orientation = 'Z';
                 sliceAxial.init();
-                sliceAxial.add(volume); 
+                sliceAxial.add(volume);
+                //sliceSagittal.add(volume);
+                //sliceCoronal.add(volume);
+                //threeD.add(volume);
                 sliceAxial.render();
                 updateGUI();
             };
             
             };
-            
             </script>
     </body>
 </html>
