@@ -13,17 +13,20 @@ and open the template in the editor.
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
         -->
-        
-        <script type="text/javascript" src="xtk.js"></script>
-        <link rel="stylesheet" href="jquery-ui.css" />
-        <script src="jquery-1.9.1.js"></script>
-        <script src="jquery-ui.js"></script>
+        <!--XTK to visualizate medical images, JQuery for the controls -->
+        <script type="text/javascript" src="libs/xtk.js"></script>
+        <link rel="stylesheet" href="libs/jquery-ui.css" />
+        <script src="libs/jquery-1.9.1.js"></script>
+        <script src="libs/jquery-ui.js"></script>
         
         <link rel="stylesheet" href="CSS/main.css">
         <link rel="stylesheet" href="CSS/normalize.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="dat.gui.js"> </script>
+        <script type="text/javascript" src="libs/dat.gui.js"> </script>
         
+        <!--Qunit to do automatic tests -->
+        <script src="/resources/qunit.js"></script>
+        <script src="/resources/tests.js"></script>
     </head>
     <body style="background-color: #000 ">
         <div style="background-color: #f0f0f0 ;width:100%">
@@ -31,6 +34,7 @@ and open the template in the editor.
                 <input type="button" onclick="xx();" value="Open"/>                
             </form>-->
             <button id="btnOpen">Open</button>
+            <button id="btnUpdate">Update</button>
         </div>
         
         <div style="float: left; width: 30%;height: 100%">
@@ -90,7 +94,7 @@ and open the template in the editor.
             //
             // create a X.volume
             volume = new X.volume();
-            volume.file = 'data/sivT1.nii'; // 'http://x.babymri.org/?vol.nrrd'; //'sivT1.nii'; //'data/vessels.nii';//sivT1.nii';//'http://x.babymri.org/?vol.nrrd';
+            volume.file =  'data/sivT1.nii'; // 'http://x.babymri.org/?vol.nrrd'; //'sivT1.nii'; //'data/vessels.nii';//sivT1.nii';//'http://x.babymri.org/?vol.nrrd';
             
             sliceAxial.add(volume);
   
@@ -140,21 +144,26 @@ and open the template in the editor.
                 //
                 //alert('onShowtime');
                 sliceSagittal.add(volume);
-                sliceSagittal.render();
+                
                 sliceCoronal.add(volume);
-                sliceCoronal.render();
+                
 
                 if (_webGLFriendly) {
                   threeD.add(volume);
                   threeD.render();
                 }  
+                sliceCoronal.render();
+                sliceSagittal.render();
                 updateGUI();                
             }; 
             
             //update all GUI controls created with dat-gui
             function updateGUI(){
                 //setting max values to the index of slices and the current index
-                guiAxial.max(volume.dimensions[2]-1).setValue(volume.indexZ);
+                //alert(volume.indexZ);!!!!!BUG???? .max dont put a value major than the previous max, mmm, nop, si coloca el tamaño, 
+                //the volume can't move to higher values
+                guiAxial.max(volume.dimensions[2]-1);
+                guiAxial.setValue(volume.indexZ);
                 guiSagital.max(volume.dimensions[0]-1).setValue(volume.indexX);
                 guiCoronal.max(volume.dimensions[1]-1).setValue(volume.indexY);
                 
@@ -170,23 +179,40 @@ and open the template in the editor.
             $("#btnOpen").click(function(){
                loadFileImage();
             });
-            function loadFileImage(){
+            $("#btnUpdate").click(function(){
+               updateGUI(); 
+            });
+            function loadFileImage(){ 
                 //alert('leyendo');
                 volume=new X.volume();
                 volume.file = 'http://x.babymri.org/?vol.nrrd';//'data/vessels.nii';
                 //sliceAxial.destroy();
                 //sliceAxial = new X.renderer2D();
                 //sliceAxial.container = 'axialSlice';
-                //sliceAxial.orientation = 'Z';
+                //sliceAxial.orientation = 'Z';                
                 //sliceAxial.init();
+                
+                //It is necessary to load information from the volume before
+                //renderings, it is a library bug
+                updateGUI();
+                
+                if (_webGLFriendly) {
+                    threeD.destroy();
+                    threeD = new X.renderer3D();
+                    threeD.container = '3Dslice';
+                    threeD.init();
+                //threeD.add(volume);
+                }
                 sliceAxial.add(volume);
+                
                 //sliceSagittal.add(volume);
                 //sliceCoronal.add(volume);
+                
                 //threeD.add(volume);
-                sliceAxial.render();
-                updateGUI();
-            };
-            
+                //threeD.resetViewAndRender();
+                //updateGUI();
+                sliceAxial.render();                
+            };            
             };
             </script>
     </body>
