@@ -12,11 +12,16 @@ MedSquare Web
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
         -->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+        
         <!--XTK to visualizate medical images, JQuery for the controls -->
         <script type="text/javascript" src="libs/xtk.js"></script>
+        <!-- using local libraries (not recommended)
         <link rel="stylesheet" href="jquery-ui.css" />
         <script src="libs/jquery-1.9.1.js"></script>
-        <script src="libs/jquery-ui.js"></script>
+        <script src="libs/jquery-ui.js"></script> -->
         
         <link rel="stylesheet" href="CSS/main.css">
         <link rel="stylesheet" href="CSS/normalize.css">
@@ -35,6 +40,21 @@ MedSquare Web
             </form>-->
             <button id="btnOpen">Open</button>
             <button id="btnUpdate">Update</button>
+            <button id="mosaic">Mosaic Mode</button>
+        </div>
+        
+        <div id="dialog-mosaic" title="Mosaic visualization">
+        <p class="validateTips">All form fields are required.</p>
+        <form>
+        <fieldset>
+            <label for="rows">Rows</label>
+            <input type="text" name="rows" id="rows" class="text ui-widget-content ui-corner-all" />
+            <label for="columns">Columns</label>
+            <input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
+            <label for="gapping">Gap between slices</label>
+            <input type="text" name="gapping" id="gapping" class="text ui-widget-content ui-corner-all" />
+        </fieldset>
+        </form>
         </div>
         
         <!-- Divs to be used by the 2D renderers-->
@@ -60,6 +80,72 @@ MedSquare Web
         <div id="qunit" ></div>
         <div id="qunit-fixture" style="width: 100%"></div>
         </div>
+        
+        <script>
+            $(function(){
+                var rows=$( "#rows" ),
+                columns=$( "#columns" ),
+                allFields = $( [] ).add( rows ).add( columns );
+                $( "#dialog-mosaic" ).dialog({
+                  autoOpen: false,
+                  height: 300,
+                  width: 350,
+                  modal: true,
+                  buttons: {
+                    "Start mosaic mode": function() {
+                      var bValid = true;
+                      allFields.removeClass( "ui-state-error" );
+
+                      bValid = bValid && checkLength( rows, "rows", 1, 3 );
+                      bValid = bValid && checkLength( columns, "columns", 1, 3 );                      
+
+                      bValid = bValid && checkRegexp( rows, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );
+                      // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+                      bValid = bValid && checkRegexp( columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );                      
+
+                      if ( bValid ) {
+                        alert('starting mosaic mode')
+                        $( this ).dialog( "close" );
+                      }
+                    },
+                    Cancel: function() {
+                      $( this ).dialog( "close" );
+                    }
+                  },
+                  close: function() {
+                    allFields.val( "" ).removeClass( "ui-state-error" );
+                  }
+                });
+
+               function checkLength( o, n, min, max ) {
+                  if ( o.val().length > max || o.val().length < min ) {
+                    o.addClass( "ui-state-error" );
+                    updateTips( "Length of " + n + " must be between " +
+                      min + " and " + max + "." );
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+
+                function checkRegexp( o, regexp, n ) {
+                  if ( !( regexp.test( o.val() ) ) ) {
+                    o.addClass( "ui-state-error" );
+                    updateTips( n );
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+
+                $( "#mosaic" )
+                  .button()
+                  .click(function() {
+                    $( "#dialog-mosaic" ).dialog( "open" );
+                  });
+            });
+            
+        </script>
         
         <script> 
             window.onload = function() {
@@ -113,8 +199,9 @@ MedSquare Web
             
             //creating containers for the controls
             foldNavigation = gui.addFolder('Slice navigation');
-            foldWinLevel= gui.addFolder('Window and level');
-            foldOther=gui.addFolder('Processes');
+            foldWindow= gui.addFolder('Window');
+            foldLevel=gui.addFolder('Level');
+            foldOther=gui.addFolder('Miscelaneous');
             
             //slices controls
             guiAxial=foldNavigation.add(volume, 'indexZ',0,
@@ -129,18 +216,21 @@ MedSquare Web
               
             guiVolumeController = foldOther.add(volume, 'volumeRendering');
             
-            //controls for the window and level
-            guiLowerThresholdController = foldWinLevel.add(volume, 'lowerThreshold',
-                volume.min, volume.max);
-            guiUpperThresholdController = foldWinLevel.add(volume, 'upperThreshold',
-                volume.min, volume.max);
-            guiLowerWindowController = foldWinLevel.add(volume, 'windowLow', volume.min,
+            //controls for the window
+            guiLowerWindowController = foldWindow.add(volume, 'windowLow', volume.min,
                 volume.max);
-            guiUpperWindowController = foldWinLevel.add(volume, 'windowHigh', volume.min,
+            guiUpperWindowController = foldWindow.add(volume, 'windowHigh', volume.min,
                 volume.max);
+            
+            //controls of level
+            guiLowerThresholdController = foldLevel.add(volume, 'lowerThreshold',
+                volume.min, volume.max);
+            guiUpperThresholdController = foldLevel.add(volume, 'upperThreshold',
+                volume.min, volume.max);
                 
             foldNavigation.open();
-            foldWinLevel.open();
+            foldWindow.open();
+            foldLevel.open();
             foldOther.open();
             
             // the onShowtime method gets executed after all files were fully loaded and
