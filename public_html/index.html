@@ -1,6 +1,5 @@
 <!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
+MedSquare Web
 -->
 <!DOCTYPE html>
 <html>
@@ -15,7 +14,7 @@ and open the template in the editor.
         -->
         <!--XTK to visualizate medical images, JQuery for the controls -->
         <script type="text/javascript" src="libs/xtk.js"></script>
-        <link rel="stylesheet" href="libs/jquery-ui.css" />
+        <link rel="stylesheet" href="jquery-ui.css" />
         <script src="libs/jquery-1.9.1.js"></script>
         <script src="libs/jquery-ui.js"></script>
         
@@ -25,8 +24,9 @@ and open the template in the editor.
         <script type="text/javascript" src="libs/dat.gui.js"> </script>
         
         <!--Qunit to do automatic tests -->
-        <script src="/resources/qunit.js"></script>
-        <script src="/resources/tests.js"></script>
+        <link rel="stylesheet" href="qunit-1.11.0.css"> 
+        <script src="libs/qunit-1.11.0.js"></script>
+        <script src="tests.js"></script>
     </head>
     <body style="background-color: #000 ">
         <div style="background-color: #f0f0f0 ;width:100%">
@@ -37,21 +37,28 @@ and open the template in the editor.
             <button id="btnUpdate">Update</button>
         </div>
         
-        <div style="float: left; width: 30%;height: 100%">
+        <!-- Divs to be used by the 2D renderers-->
+        <div style="float: left; width: 30%;height: 95%">
             <br/>
             <div id="axialSlice" 
-                 style="height:33%; margin: 2px;border-right: solid yellow;margin-right: 10px">
-                axial</div>
+                 style="height:33%; margin: 2px;margin-right: 10px; color: red"><!-- border-right: solid yellow-->
+                XY</div>
             <div id="sagitalSlice" 
-                 style="height:33%; margin: 2px; border-right: solid red;margin-right: 10px">
-                sagittal</div>
+                 style="height:33%; margin: 2px; margin-right: 10px; color: green"><!-- border-right: solid red;-->
+                YZ</div>
             <div id="coronalSlice" 
-                 style="height:33%; margin: 2px; border-right: solid green;margin-right: 10px">
-                coronal</div>      
-        </div>
-        
+                 style="height:33%; margin: 2px; margin-right: 10px; color: blue"><!-- border-right: solid green;-->
+                XZ</div>      
+        </div>              
+        <!-- Divs to be used by the 3D renderer-->
         <div id="3Dslice" style="float:left; width: 50%; height: 500px">            
-            <br/>
+            <br/>3D
+        </div>
+        <br/>
+        <!-- Divs for tests-->
+        <div style="width: 100%; position: absolute; top: 700px">
+        <div id="qunit" ></div>
+        <div id="qunit-fixture" style="width: 100%"></div>
         </div>
         
         <script> 
@@ -111,11 +118,11 @@ and open the template in the editor.
             
             //slices controls
             guiAxial=foldNavigation.add(volume, 'indexZ',0,
-                volume.dimensions[2]-1).name('axial');
+                volume.dimensions[2]-1).name('XY');
             guiSagital=foldNavigation.add(volume, 'indexX',0,
-                volume.dimensions[0]-1).name('sagittal');
+                volume.dimensions[0]-1).name('YZ');
             guiCoronal=foldNavigation.add(volume, 'indexY',0,
-                volume.dimensions[1]-1).name('coronal');
+                volume.dimensions[1]-1).name('XZ');
             
             // .. configure the volume rendering opacity
             guiOpacityController = foldOther.add(volume, 'opacity', 0, 1);
@@ -143,8 +150,7 @@ and open the template in the editor.
                 // add the volume to the other 3 renderers
                 //
                 //alert('onShowtime');
-                sliceSagittal.add(volume);
-                
+                sliceSagittal.add(volume);                
                 sliceCoronal.add(volume);
                 
 

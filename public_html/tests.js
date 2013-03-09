@@ -1,6 +1,5 @@
 /* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Tests for the MedSquare Web
  */
 test( "hello test", function() {
 ok( 1 == "1", "Passed!" );
