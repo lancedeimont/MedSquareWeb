@@ -45,22 +45,30 @@ and open the template in the editor.
             <button id="mosaic">Mosaic Mode</button>
         </div>
         <div id="mainDiv">
-            <iframe src="visualization.html" style="width: 100%; height: 600px">
-            <script>
-                //w=window.open("visualization.html");
-                
-            </script>
+            <iframe src="visualization.html" style="width: 100%; height: 600px">            
         </div>        
         <!-- Divs for tests-->
         <div style="width: 100%; position: absolute; top: 900px">
-        <div id="qunit" ></div>
-        <div id="qunit-fixture" style="width: 100%"></div>
+        <div id="qunit" >         
         </div>
+        <div id="qunit-fixture" style="width: 100%"></div>        
         
-        <script>
-            //window.onload=function(){
-            //  $('#mainDiv').load("visualization.html");
-            //};
+        <script>           
+            
+            //global variables
+            //defines if the browser can use WebGl
+            _webGLFriendly = true;
+            volume = new X.volume();
+            
+            //loads an image saved in the server            
+            function loadWebFile(filePath){
+                volume=new X.volume();
+                volume.file = filePath;
+                //updateGUI()
+            };
+            $("#btnOpen").click(function(){
+               loadWebFile();
+            });
         </script>
             
     </body>
