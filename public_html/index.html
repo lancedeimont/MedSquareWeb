@@ -43,7 +43,63 @@ and open the template in the editor.
             volume = new X.volume();
             tst="principal";
 
-            
+            //functions to show the mosaic dialog
+            $(function(){
+                var rows=$( "#rows" ),
+                columns=$( "#columns" ),
+                allFields = $( [] ).add( rows ).add( columns );
+                $( "#dialog-mosaic" ).dialog({
+                  autoOpen: false,
+                  height: 300,
+                  width: 400,
+                  modal: true,
+                  buttons: {
+                    "Start mosaic mode": function() {
+                      var bValid = true;
+                      allFields.removeClass( "ui-state-error" );
+
+                      bValid = bValid && checkLength( rows, "rows", 1, 2 );
+                      bValid = bValid && checkLength( columns, "columns", 1, 2 );                      
+
+                      bValid = bValid && checkRegexp( rows, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );
+                      // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+                      bValid = bValid && checkRegexp( columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );                      
+
+                      if ( bValid ) {
+                        alert('starting mosaic mode');
+                        $( this ).dialog( "close" );
+                      }
+                    },
+                    Cancel: function() {
+                      $( this ).dialog( "close" );
+                    }
+                  },
+                  close: function() {
+                    allFields.val( "" ).removeClass( "ui-state-error" );
+                  }
+                });
+
+               function checkLength( o, n, min, max ) {
+                  if ( o.val().length > max || o.val().length < min ) {
+                    o.addClass( "ui-state-error" );
+                    updateTips( "Length of " + n + " must be between " +
+                      min + " and " + max + "." );
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+
+                function checkRegexp( o, regexp, n ) {
+                  if ( !( regexp.test( o.val() ) ) ) {
+                    o.addClass( "ui-state-error" );
+                    updateTips( n );
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+            });
             
             
             //loads an image saved in the server            
@@ -54,13 +110,25 @@ and open the template in the editor.
             };
                         
             $(function() {
-            $( "button" )
+            $( "#btnOpen" )
               .button()
               .click(function() {
                     loadWebFile('http://x.babymri.org/?vol.nrrd'); 
                     document.getElementById('frVisualiz').contentWindow.showVolume();
               });
+            $("#btnMosaic")
+                .button()
+                .click(function(){
+                    $( "#dialog-mosaic" ).dialog( "open" );                     
+                });
+            $("#btnUpdate")
+                .button()
+                .click(function(){
+
+                });
+            
             });
+            
             
         </script>
         
@@ -75,8 +143,24 @@ and open the template in the editor.
             </form>-->
             <button id="btnOpen">Open</button>
             <button id="btnUpdate">Update</button>
-            <button id="mosaic">Mosaic Mode</button>
+            <button id="btnMosaic">Mosaic Mode</button>
         </div> 
+        <div id="dialog-mosaic" title="Mosaic visualization">
+        <p class="validateTips">All form fields are required.</p>
+        <form>
+        <fieldset>
+            <label for="rows">Rows
+            <input type="text" name="rows" id="rows" class="text ui-widget-content ui-corner-all" />
+            </label>
+            <label for="columns">Columns
+            <input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
+            </label>
+            <label for="gapping">Gap between slices
+            <input type="text" name="gapping" id="gapping" class="text ui-widget-content ui-corner-all" />
+            </label>
+        </fieldset>
+        </form>
+        </div>
         <div id="mainDiv">
             <iframe id="frVisualiz" src="visualization.html" 
                     style="width: 100%; height: 600px">            

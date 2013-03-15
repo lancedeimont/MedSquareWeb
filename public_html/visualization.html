@@ -147,6 +147,13 @@ MedSquare Web
                 volume=new X.volume();
                 volume.file=sessionStorage.getItem("volumePath");
                 updateGUI();
+                if (_webGLFriendly) {
+                    threeD.destroy();
+                    threeD = new X.renderer3D();
+                    threeD.container = '3Dslice';
+                    threeD.init();
+                //threeD.add(volume);
+                }
                 sliceAxial.add(volume);
                 sliceAxial.render();                
             }
@@ -210,9 +217,10 @@ MedSquare Web
             
             //slices controls
             guiAxial=foldNavigation.add(volume, 'indexZ',0,
-                volume.dimensions[2]-1).name('XY');
+                volume.dimensions[2]-1).name('XY');//.__color("#ff0000");
+                        
             guiSagital=foldNavigation.add(volume, 'indexX',0,
-                volume.dimensions[0]-1).name('YZ');
+                volume.dimensions[0]-1).name('YZ');//.background-color("#ff0000");
             guiCoronal=foldNavigation.add(volume, 'indexY',0,
                 volume.dimensions[1]-1).name('XZ');
             
@@ -222,10 +230,10 @@ MedSquare Web
             guiVolumeController = foldOther.add(volume, 'volumeRendering');
             
             //controls for the window
-            guiLowerWindowController = foldWindow.add(volume, 'windowLow', volume.min,
-                volume.max);
-            guiUpperWindowController = foldWindow.add(volume, 'windowHigh', volume.min,
-                volume.max);
+            guiLowerWindowController = foldWindow.add(volume, 'windowLow', 
+                volume.min, volume.max);
+            guiUpperWindowController = foldWindow.add(volume, 'windowHigh', 
+                volume.min, volume.max);
             
             //controls of level
             guiLowerThresholdController = foldLevel.add(volume, 'lowerThreshold',
