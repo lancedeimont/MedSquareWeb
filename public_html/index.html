@@ -26,6 +26,7 @@ and open the template in the editor.
         
         <link rel="stylesheet" href="CSS/main.css">
         <link rel="stylesheet" href="CSS/normalize.css">
+        <link rel="stylesheet" href="CSS/mainCss.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="libs/dat.gui.js"> </script>
         
@@ -50,7 +51,7 @@ and open the template in the editor.
                 allFields = $( [] ).add( rows ).add( columns );
                 $( "#dialog-mosaic" ).dialog({
                   autoOpen: false,
-                  height: 300,
+                  height: 330,
                   width: 400,
                   modal: true,
                   buttons: {
@@ -149,14 +150,17 @@ and open the template in the editor.
         <p class="validateTips">All form fields are required.</p>
         <form>
         <fieldset>
-            <label for="rows">Rows
-            <input type="text" name="rows" id="rows" class="text ui-widget-content ui-corner-all" />
+            <label class="image-information-field">
+		Rows
+            	<input type="text" name="rows" id="rows" class="text ui-widget-content ui-corner-all" />
             </label>
-            <label for="columns">Columns
-            <input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
+            <label class="image-information-field">
+		Columns
+            	<input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
             </label>
-            <label for="gapping">Gap between slices
-            <input type="text" name="gapping" id="gapping" class="text ui-widget-content ui-corner-all" />
+            <label class="image-information-field">
+		Gap between slices
+            	<input type="text" name="gapping" id="gapping" class="text ui-widget-content ui-corner-all" />
             </label>
         </fieldset>
         </form>
@@ -170,8 +174,5 @@ and open the template in the editor.
         <div id="qunit" >         
         </div>
         <div id="qunit-fixture" style="width: 100%"></div>        
-        
-        
-            
     </body>
 </html>
