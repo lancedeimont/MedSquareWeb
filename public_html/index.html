@@ -39,6 +39,7 @@ and open the template in the editor.
             //global variables
             //defines if the browser can use WebGl
             _webGLFriendly = true;
+            sessionStorage.setItem("webGL",true);
             volume = new X.volume();
             tst="principal";
 
@@ -46,12 +47,10 @@ and open the template in the editor.
             
             
             //loads an image saved in the server            
-            function loadWebFile(filePath){
-                volume=new X.volume();
-                volume.file = filePath;
-                
-                sessionStorage.setItem("autosave", "holas");
-                //updateGUI()
+            function loadWebFile(filePath){                
+                //volume=new X.volume();
+                //volume.file = filePath;                              
+                sessionStorage.setItem("volumePath",filePath);
             };
                         
             $(function() {
@@ -59,7 +58,7 @@ and open the template in the editor.
               .button()
               .click(function() {
                     loadWebFile('http://x.babymri.org/?vol.nrrd'); 
-                    document.getElementById('frVisualiz').contentWindow.alerta();
+                    document.getElementById('frVisualiz').contentWindow.showVolume();
               });
             });
             

@@ -137,16 +137,26 @@ MedSquare Web
         </script>
         
         <script> 
+            volume = new X.volume();
+            
             function alerta(){
                 alert(sessionStorage.getItem("autosave"));
             };
-            window.onload = function() {
+            function showVolume(){
+                //alert(sessionStorage.getItem("volumePath"));                
+                volume=new X.volume();
+                volume.file=sessionStorage.getItem("volumePath");
+                updateGUI();
+                sliceAxial.add(volume);
+                sliceAxial.render();                
+            }
+            //window.onload = function() {
             
             //window.parent.
             
             
             // try to create the 3D renderer            
-            _webGLFriendly = true;
+            _webGLFriendly = sessionStorage.getItem("webGL");
             try {
                 // try to create and initialize a 3D renderer
                 threeD = new X.renderer3D();
@@ -181,7 +191,7 @@ MedSquare Web
             // THE VOLUME DATA
             //
             // create a X.volume
-            volume = new X.volume();
+            
             volume.file =  'data/sivT1.nii'; // 'http://x.babymri.org/?vol.nrrd'; //'sivT1.nii'; //'data/vessels.nii';//sivT1.nii';//'http://x.babymri.org/?vol.nrrd';
             
             sliceAxial.add(volume);
@@ -305,8 +315,10 @@ MedSquare Web
                 //threeD.resetViewAndRender();
                 //updateGUI();
                 sliceAxial.render();                
-            };            
-            };
+            }; 
+            
+            
+            //};
             </script>
     </body>
 </html>
