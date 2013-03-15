@@ -33,9 +33,43 @@ and open the template in the editor.
         <link rel="stylesheet" href="qunit-1.11.0.css"> 
         <script src="libs/qunit-1.11.0.js"></script>
         <script src="tests.js"></script>
+        
+        
+        <script>           
+            //global variables
+            //defines if the browser can use WebGl
+            _webGLFriendly = true;
+            volume = new X.volume();
+            tst="principal";
+
+            
+            
+            
+            //loads an image saved in the server            
+            function loadWebFile(filePath){
+                volume=new X.volume();
+                volume.file = filePath;
+                
+                sessionStorage.setItem("autosave", "holas");
+                //updateGUI()
+            };
+                        
+            $(function() {
+            $( "button" )
+              .button()
+              .click(function() {
+                    loadWebFile('http://x.babymri.org/?vol.nrrd'); 
+                    document.getElementById('frVisualiz').contentWindow.alerta();
+              });
+            });
+            
+        </script>
+        
     </head>
     <body style="background-color: #000" >
-        <div style="background-color: #ffffff "><img src="images/MedsquareWeb_logo.png"></div>
+        <div style="background-color: #ffffff ">
+            <img src="images/MedsquareWeb_logo.png">
+        </div>
         <div style="background-color: #f0f0f0 ;width:100%">
             <!--<form>
                 <input type="button" onclick="xx();" value="Open"/>                
@@ -43,9 +77,10 @@ and open the template in the editor.
             <button id="btnOpen">Open</button>
             <button id="btnUpdate">Update</button>
             <button id="mosaic">Mosaic Mode</button>
-        </div>
+        </div> 
         <div id="mainDiv">
-            <iframe src="visualization.html" style="width: 100%; height: 600px">            
+            <iframe id="frVisualiz" src="visualization.html" 
+                    style="width: 100%; height: 600px">            
         </div>        
         <!-- Divs for tests-->
         <div style="width: 100%; position: absolute; top: 900px">
@@ -53,23 +88,7 @@ and open the template in the editor.
         </div>
         <div id="qunit-fixture" style="width: 100%"></div>        
         
-        <script>           
-            
-            //global variables
-            //defines if the browser can use WebGl
-            _webGLFriendly = true;
-            volume = new X.volume();
-            
-            //loads an image saved in the server            
-            function loadWebFile(filePath){
-                volume=new X.volume();
-                volume.file = filePath;
-                //updateGUI()
-            };
-            $("#btnOpen").click(function(){
-               loadWebFile();
-            });
-        </script>
+        
             
     </body>
 </html>
