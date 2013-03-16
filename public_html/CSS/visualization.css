@@ -1,0 +1,27 @@
+.slices-2D {
+	float: left;
+	width: 30%;
+}
+
+.slice-2D {
+	height: 33%;
+	margin: 0.2em 1em;
+}
+
+.axial {
+	color: red;
+}
+
+.sagittal {
+	color: green;
+}
+
+.coronal {
+	color: blue;
+}
+
+.slice-3D {
+	float: left;
+	height: 500px;
+	width: 50%;
+}

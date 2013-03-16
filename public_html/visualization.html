@@ -16,6 +16,8 @@ MedSquare Web
         
         <link rel="stylesheet" href="CSS/main.css">
         <link rel="stylesheet" href="CSS/normalize.css">
+        <link rel="stylesheet" href="CSS/mainCss.css">
+        <link rel="stylesheet" href="CSS/visualization.css">
 
         <script type="text/javascript" src="libs/dat.gui.js"> </script>
         
@@ -24,40 +26,44 @@ MedSquare Web
         <script src="libs/qunit-1.11.0.js"></script>
         <script src="tests.js"></script>
     </head>
-    <body style="background-color: #000 ">
+    <body>
         <div id="dialog-mosaic" title="Mosaic visualization">
-        <p class="validateTips">All form fields are required.</p>
-        <form>
-        <fieldset>
-            <label for="rows">Rows</label>
-            <input type="text" name="rows" id="rows" class="text ui-widget-content ui-corner-all" />
-            <label for="columns">Columns</label>
-            <input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
-            <label for="gapping">Gap between slices</label>
-            <input type="text" name="gapping" id="gapping" class="text ui-widget-content ui-corner-all" />
-        </fieldset>
-        </form>
+            <p class="validateTips">All form fields are required.</p>
+            <form>
+                <fieldset>
+                    <label>
+                        Rows
+                        <input type="text" name="rows" id="rows" class="text ui-widget-content ui-corner-all" />
+                    </label>
+                    <label>
+                        Columns
+                        <input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
+                    </label>
+                    <label>
+                        Gap between slices
+                        <input type="text" name="gapping" id="gapping" class="text ui-widget-content ui-corner-all" />
+                    </label>
+                </fieldset>
+            </form>
         </div>
         
         <!-- Divs to be used by the 2D renderers-->
-        <div style="float: left; width: 30%;height: 95%">
-            <br/>
-            <div id="axialSlice" 
-                 style="height:33%; margin: 2px;margin-right: 10px; color: red"><!-- border-right: solid yellow-->
-                XY</div>
-            <div id="sagitalSlice" 
-                 style="height:33%; margin: 2px; margin-right: 10px; color: green"><!-- border-right: solid red;-->
-                YZ</div>
-            <div id="coronalSlice" 
-                 style="height:33%; margin: 2px; margin-right: 10px; color: blue"><!-- border-right: solid green;-->
-                XZ</div>      
-        </div>              
+        <section class="slices-2D">
+            <div id="axialSlice" class="slice-2D axial">
+                <span>XY</span>
+            </div>
+            <div id="sagitalSlice" class="slice-2D sagittal">
+                <span>YZ</span>
+            </div>
+            <div id="coronalSlice" class="slice-2D coronal">
+                <span>XZ</span>
+            </div>
+        </section>
+
         <!-- Divs to be used by the 3D renderer-->
-        <div id="3Dslice" style="float:left; width: 50%; height: 500px">            
-            <br/>3D
-        </div>
-        <br/>
-        
+        <section id="3Dslice" class="slice-3D">
+            <span>3D</span>
+        </section>
         
         <script>
             $(function(){
