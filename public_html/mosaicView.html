@@ -27,14 +27,34 @@ and open the template in the editor.
             rows=loadParammeter("rows");
             columns=loadParammeter("columns");
             gapping=loadParammeter("gapping");
+            //createDivs(rows,columns);
+            
+            function createDivs(nrow,ncol){
+                widthDiv=$(window).width()/ncol;
+                //-100 because the header
+                heightDiv=($(window).height()-100)/nrow;
                 
-            function loadParammeters(v){
+                for(var i=0;i<ncol;i++)
+                    for(var j=0; j<nrow;j++)
+                        {                            
+                            $('<div>',{
+                                id:"div"+i+"x"+j,
+                                width: widthDiv,
+                                height:heightDiv,
+                                style:"float: left; width :"+widthDiv+"px; height:"+heightDiv+"px;",
+                                html:"div"+i+"x"+j
+                                }).appendTo('#mosaicDiv');
+                        }
+            }
+            function loadParammeter(v){
                 return sessionStorage.getItem(v);                
             }    
-            
+            window.onload=function(){
+              createDivs(rows,columns)  ;
+            };
         </script>
     </head>
     <body>
-        <div>Mosaic</div>
+        <div id="mosaicDiv"></div>
     </body>
 </html>
