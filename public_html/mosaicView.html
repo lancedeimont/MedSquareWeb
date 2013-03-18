@@ -22,6 +22,17 @@ and open the template in the editor.
 
         <script type="text/javascript" src="libs/dat.gui.js"> </script>
         
+        <script>
+            
+            rows=loadParammeter("rows");
+            columns=loadParammeter("columns");
+            gapping=loadParammeter("gapping");
+                
+            function loadParammeters(v){
+                return sessionStorage.getItem(v);                
+            }    
+            
+        </script>
     </head>
     <body>
         <div>Mosaic</div>

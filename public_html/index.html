@@ -43,6 +43,7 @@ and open the template in the editor.
             $(function(){
                 var rows=$( "#rows" ),
                 columns=$( "#columns" ),
+                gapping=$("#gapping"),
                 allFields = $( [] ).add( rows ).add( columns );
                 $( "#dialog-mosaic" ).dialog({
                     autoOpen: false,
@@ -60,13 +61,17 @@ and open the template in the editor.
                         // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
                         bValid = bValid && checkRegexp( rows, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );
                         bValid = bValid && checkRegexp( columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );
-
-                        if ( bValid ) {
-                            //starting mosaic mode
+                            
+                        if ( bValid ) {//starting mosaic mode
+                            //saving values to session variables
+                            sessionStorage.setItem("rows", rows.val());
+                            sessionStorage.setItem("columns", columns.val());
+                            sessionStorage.setItem("gapping",gapping.val());
+                            
                             $( this ).dialog( "close" );
                             //load page of mosaic view
                             var ifrm=document.getElementById("frVisualiz");
-                            ifrm.setAttribute("src","mosaicView.html");
+                            ifrm.setAttribute("src","mosaicView.html?rows="+rows+"&columns="+columns);
                             mode=1;
                             //change button's name
                             document.getElementById("btnMosaic").innerHTML="MPR mode";
