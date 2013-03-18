@@ -10,7 +10,10 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+        <!-- using web libraries
+        <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>-->
+        <!-- using local libraries-->
+        <script src="libs/jquery-ui.js"></script> 
         
         <!--XTK to visualizate medical images, JQuery for the controls -->
         <script type="text/javascript" src="libs/xtk.js"></script>
@@ -28,6 +31,8 @@ and open the template in the editor.
         
         <script>
             //global variables
+            //modes: 0=MPR, 1=mosaic
+            mode=0;
             //defines if the browser can use WebGl
             _webGLFriendly = true;
             sessionStorage.setItem("webGL",true);
@@ -57,9 +62,18 @@ and open the template in the editor.
                         bValid = bValid && checkRegexp( columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );
 
                         if ( bValid ) {
-                            alert('starting mosaic mode');
+                            //starting mosaic mode
                             $( this ).dialog( "close" );
-                        }
+                            //load page of mosaic view
+                            var ifrm=document.getElementById("frVisualiz");
+                            ifrm.setAttribute("src","mosaicView.html");
+                            mode=1;
+                            //change button's name
+                            document.getElementById("btnMosaic").innerHTML="MPR mode";
+                        }else
+                            {
+                                alert('The values must to be numbers');
+                            }
                     },
                     Cancel: function() {
                         $( this ).dialog( "close" );
@@ -106,7 +120,18 @@ and open the template in the editor.
             });
 
             $("#btnMosaic").button().click(function(){
-                $( "#dialog-mosaic" ).dialog( "open" );
+                if(mode===0)//we are in mpr mode
+                {//show a dialog and load mosaic view
+                    $( "#dialog-mosaic" ).dialog( "open" );                     
+                }                
+                else
+                {//mosaic mode
+                    //load page of mpr view
+                    var ifrm=document.getElementById("frVisualiz");
+                    ifrm.setAttribute("src","visualization.html");
+                    mode=0;
+                    document.getElementById("btnMosaic").value="mosaic mode";
+                }
             });
 
             $("#btnUpdate").button().click(function(){
@@ -143,9 +168,10 @@ and open the template in the editor.
                 </fieldset>
             </form>
         </div>
-        <main id="mainDiv">
+        <!-- maindiv should be  bug in netbeans, do not recognize main-->
+        <div id="mainDiv">
             <iframe id="frVisualiz" src="visualization.html" style="width: 100%; height: 600px">
-        </main>
+        </div>
 
         <!-- Divs for tests-->
         <div style="width: 100%; position: absolute; top: 900px">
