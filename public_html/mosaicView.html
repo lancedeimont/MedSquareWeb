@@ -22,6 +22,11 @@ and open the template in the editor.
 
         <script type="text/javascript" src="libs/dat.gui.js"></script>
 
+
+    </head>
+    <body>
+        <div id="mosaicDiv"></div>
+
         <script>
 
             rows = loadParammeter("rows");
@@ -30,15 +35,15 @@ and open the template in the editor.
             orientation = 'Z';
             norientation = 2;
             volume = new X.volume();
-            alert(loadParammeter("volumePath"));
+
             volume.file = loadParammeter("volumePath");
-            
-            slice = new X.renderer2D();            
+
+            slice = new X.renderer2D();
             slice.orientation = orientation;
-            
-            
+
+            alert(loadParammeter("volumePath"));
             renderers = [];
-            volumes=[];
+            volumes = [];
             volumes.push(volume);
             //createDivs(rows,columns);
 
@@ -50,60 +55,62 @@ and open the template in the editor.
                 for (var i = 0; i < ncol; i++)
                     for (var j = 0; j < nrow; j++)
                     {
-                        var nameDiv="div" + i + "x" + j;
+                        var nameDiv = "div" + i + "x" + j;
                         $('<div>', {
                             id: nameDiv,
                             style: "float: left; width :" + widthDiv + "px; height:" + heightDiv + "px;",
-                            //html: "div" + i + "x" + j
+                            html: "div" + i + "x" + j
                         }).appendTo('#mosaicDiv');
                         //var indx=sizeVolume/(rows*columns);
                         indx = 1 + (i * ncol + j) * gapping;
                         //if it is the last slice show the last slice in the volume
-                        if(i==0 && j==0)//it is the first div, load the volume
-                            {
-                                slice.container = nameDiv;
-                                slice.init();
-                            }
                         if (i == ncol && j == nrow)
-                            indx = sizeVolume - 1;                        
-                        renderers.push(create2DRender(nameDiv,i*ncol+j));
+                            indx = sizeVolume - 1;
+
+                        if (i == 0 && j == 0)//it is the first div, load the volume
+                        {
+                            slice.container = nameDiv;
+                            slice.init();
+                            slice.add(volume);
+                            slice.render();
+                        } else
+                        {
+                            renderers.push(create2DRender(nameDiv, i * ncol + j));
+                        }
                     }
             }
-            
+
             function create2DRender(container, id)
             {
-                
+
                 slice = new X.renderer2D();
                 slice.container = container;
                 slice.orientation = orientation;
                 slice.init();
-                
-                volume=new X.volume();
-                volume.fileData=volumes[0].image;
+
+                volume = new X.volume();
+                volume.fileData = volumes[0].image;
                 volumes.push(volume);//add a volume if it is not the 
-                                //last div (one more was added innitially)
-                volume.indexZ=id;
-                slice.add(volume);                
+                //last div (one more was added innitially)
+                volume.indexZ = id;
+                slice.add(volume);
                 return slice;
             }
-            
+
             function loadParammeter(v) {
                 return sessionStorage.getItem(v);
             }
-            
-            function renderSlices(){
-                for (var i = 0; i < rows*columns; i++)                    
-                        renderers[i].render();                    
+
+            function renderSlices() {
+                for (var i = 0; i < rows * columns; i++)
+                    renderers[i].render();
             }
-            
+
             window.onload = function() {
                 createDivs(rows, columns);
-                renderers[0].render();
+                //renderers[0].render();
                 //renderSlices();
             };
         </script>
-    </head>
-    <body>
-        <div id="mosaicDiv"></div>
     </body>
 </html>
