@@ -11,46 +11,95 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-        
+
         <!--XTK to visualizate medical images, JQuery for the controls -->
         <script type="text/javascript" src="libs/xtk.js"></script>
-        
+
         <link rel="stylesheet" href="CSS/main.css">
         <link rel="stylesheet" href="CSS/normalize.css">
         <link rel="stylesheet" href="CSS/mainCss.css">
         <link rel="stylesheet" href="CSS/visualization.css">
 
-        <script type="text/javascript" src="libs/dat.gui.js"> </script>
-        
+        <script type="text/javascript" src="libs/dat.gui.js"></script>
+
         <script>
+
+            rows = loadParammeter("rows");
+            columns = loadParammeter("columns");
+            gapping = loadParammeter("gapping");
+            orientation = 'Z';
+            norientation = 2;
+            volume = new X.volume();
+            alert(loadParammeter("volumePath"));
+            volume.file = loadParammeter("volumePath");
             
-            rows=loadParammeter("rows");
-            columns=loadParammeter("columns");
-            gapping=loadParammeter("gapping");
+            slice = new X.renderer2D();            
+            slice.orientation = orientation;
+            
+            
+            renderers = [];
+            volumes=[];
+            volumes.push(volume);
             //createDivs(rows,columns);
-            
-            function createDivs(nrow,ncol){
-                widthDiv=$(window).width()/ncol;
+
+            function createDivs(nrow, ncol) {
+                widthDiv = $(window).width() / ncol;
                 //-100 because the header
-                heightDiv=($(window).height()-100)/nrow;
-                
-                for(var i=0;i<ncol;i++)
-                    for(var j=0; j<nrow;j++)
-                        {                            
-                            $('<div>',{
-                                id:"div"+i+"x"+j,
-                                width: widthDiv,
-                                height:heightDiv,
-                                style:"float: left; width :"+widthDiv+"px; height:"+heightDiv+"px;",
-                                html:"div"+i+"x"+j
-                                }).appendTo('#mosaicDiv');
-                        }
+                heightDiv = ($(window).height() - 100) / nrow;
+                sizeVolume = volume.dimensions[norientation];
+                for (var i = 0; i < ncol; i++)
+                    for (var j = 0; j < nrow; j++)
+                    {
+                        var nameDiv="div" + i + "x" + j;
+                        $('<div>', {
+                            id: nameDiv,
+                            style: "float: left; width :" + widthDiv + "px; height:" + heightDiv + "px;",
+                            //html: "div" + i + "x" + j
+                        }).appendTo('#mosaicDiv');
+                        //var indx=sizeVolume/(rows*columns);
+                        indx = 1 + (i * ncol + j) * gapping;
+                        //if it is the last slice show the last slice in the volume
+                        if(i==0 && j==0)//it is the first div, load the volume
+                            {
+                                slice.container = nameDiv;
+                                slice.init();
+                            }
+                        if (i == ncol && j == nrow)
+                            indx = sizeVolume - 1;                        
+                        renderers.push(create2DRender(nameDiv,i*ncol+j));
+                    }
             }
-            function loadParammeter(v){
-                return sessionStorage.getItem(v);                
-            }    
-            window.onload=function(){
-              createDivs(rows,columns)  ;
+            
+            function create2DRender(container, id)
+            {
+                
+                slice = new X.renderer2D();
+                slice.container = container;
+                slice.orientation = orientation;
+                slice.init();
+                
+                volume=new X.volume();
+                volume.fileData=volumes[0].image;
+                volumes.push(volume);//add a volume if it is not the 
+                                //last div (one more was added innitially)
+                volume.indexZ=id;
+                slice.add(volume);                
+                return slice;
+            }
+            
+            function loadParammeter(v) {
+                return sessionStorage.getItem(v);
+            }
+            
+            function renderSlices(){
+                for (var i = 0; i < rows*columns; i++)                    
+                        renderers[i].render();                    
+            }
+            
+            window.onload = function() {
+                createDivs(rows, columns);
+                renderers[0].render();
+                //renderSlices();
             };
         </script>
     </head>
