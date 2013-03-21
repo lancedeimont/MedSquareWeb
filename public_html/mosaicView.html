@@ -40,8 +40,10 @@ and open the template in the editor.
 
             slice = new X.renderer2D();
             slice.orientation = orientation;
+            
+            volumet = new X.volume();
+            slicet = new X.renderer2D();
 
-            alert(loadParammeter("volumePath"));
             renderers = [];
             volumes = [];
             volumes.push(volume);
@@ -73,28 +75,40 @@ and open the template in the editor.
                             slice.init();
                             slice.add(volume);
                             slice.render();
-                        } else
-                        {
-                            renderers.push(create2DRender(nameDiv, i * ncol + j));
+                            renderers.push(slice);
                         }
                     }
             }
 
+            function createRenderers(nrow, ncol)
+            {
+                for (var i = 0; i < ncol; i++)
+                    for (var j = 0; j < nrow; j++)
+                    {
+                        if (i != 0 || j != 0)//the first renderer was created before
+                        {
+                            var nameDiv = "div" + i + "x" + j;
+                            slicet = new X.renderer2D();
+                            volumet = new X.volume();
+                            renderers.push(create2DRender(nameDiv, i * ncol + j));
+                        }
+                    }
+            }
             function create2DRender(container, id)
             {
-
-                slice = new X.renderer2D();
-                slice.container = container;
-                slice.orientation = orientation;
-                slice.init();
-
-                volume = new X.volume();
-                volume.fileData = volumes[0].image;
-                volumes.push(volume);//add a volume if it is not the 
+                alert(container)                
+                slicet.container = container;
+                slicet.orientation = orientation;
+                slicet.init();
+                
+                //volumet.fileData = volumes[0].image;
+                volumet.file= loadParammeter("volumePath");
+                volumes.push(volumet);//add a volume if it is not the 
                 //last div (one more was added innitially)
-                volume.indexZ = id;
-                slice.add(volume);
-                return slice;
+                volumet.indexZ = 5;
+                slicet.add(volumet);
+                slicet.render();
+                return slicet;
             }
 
             function loadParammeter(v) {
@@ -102,14 +116,25 @@ and open the template in the editor.
             }
 
             function renderSlices() {
-                for (var i = 0; i < rows * columns; i++)
-                    renderers[i].render();
+                for (var i = 1; i < rows * columns; i++)
+                    {
+                        alert(i);
+                        renderers[i].render();
+                    }
             }
+
+
 
             window.onload = function() {
                 createDivs(rows, columns);
-                //renderers[0].render();
-                //renderSlices();
+
+                //renderers[0].render();      
+//                renderSlices();
+                //when the first renderer is loaded all the others will be rendered
+                slice.onShowtime = function() {
+                    createRenderers(rows, columns);
+                    renderSlices();
+                };
             };
         </script>
     </body>
