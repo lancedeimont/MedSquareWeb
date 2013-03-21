@@ -247,7 +247,6 @@ MedSquare Web
                 //
                 // add the volume to the other 3 renderers
                 //
-                //alert('onShowtime');
                 sliceSagittal.add(volume);                
                 sliceCoronal.add(volume);
                 
@@ -289,14 +288,8 @@ MedSquare Web
             
             
             function loadFileImage(){ 
-                //alert('leyendo');
                 volume=new X.volume();
-                volume.file = 'http://x.babymri.org/?vol.nrrd';//'data/vessels.nii';
-                //sliceAxial.destroy();
-                //sliceAxial = new X.renderer2D();
-                //sliceAxial.container = 'axialSlice';
-                //sliceAxial.orientation = 'Z';                
-                //sliceAxial.init();
+                volume.file = 'http://x.babymri.org/?vol.nrrd';//'data/vessels.nii';                
                 
                 //It is necessary to load information from the volume before
                 //renderings, it is a library bug
@@ -311,12 +304,6 @@ MedSquare Web
                 }
                 sliceAxial.add(volume);
                 
-                //sliceSagittal.add(volume);
-                //sliceCoronal.add(volume);
-                
-                //threeD.add(volume);
-                //threeD.resetViewAndRender();
-                //updateGUI();
                 sliceAxial.render();                
             }; 
             
