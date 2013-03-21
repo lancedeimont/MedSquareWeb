@@ -86,7 +86,7 @@ and open the template in the editor.
                     var sizeVolume = volumet.dimensions[norientation];
                     gap = sizeVolume/(nx*ny);//calculate the gap
                     indx = (x + y * nx) * gap;
-                    if(x==nx-1 && y==ny)//it is the last
+                    if(x==nx-1 && y==ny-1)//it is the last
                         indx=sizeVolume-1;
                 }
                 else
