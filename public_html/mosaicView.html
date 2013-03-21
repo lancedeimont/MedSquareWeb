@@ -32,8 +32,8 @@ and open the template in the editor.
             rows = loadParammeter("rows");
             columns = loadParammeter("columns");
             gapping = loadParammeter("gapping");
-            
-            initialSlice=0;
+
+            initialSlice = 0;
             orientation = 'Z';
             norientation = 2;
             volume = new X.volume();
@@ -42,7 +42,7 @@ and open the template in the editor.
             volume.indexZ = initialSlice;
             slice = new X.renderer2D();
             slice.orientation = orientation;
-            
+
             volumet = new X.volume();
             slicet = new X.renderer2D();
 
@@ -55,7 +55,6 @@ and open the template in the editor.
                 widthDiv = $(window).width() / ncol;
                 //-100 because the header
                 heightDiv = ($(window).height() - 100) / nrow;
-                sizeVolume = volume.dimensions[norientation];
 
                 for (var i = 0; i < ncol; i++)
                     for (var j = 0; j < nrow; j++)
@@ -65,7 +64,7 @@ and open the template in the editor.
                             id: nameDiv,
                             style: "float: left; width :" + widthDiv + "px; height:" + heightDiv + "px;",
                             //html: "div" + i + "x" + j
-                        }).appendTo('#mosaicDiv');                                                
+                        }).appendTo('#mosaicDiv');
 
                         if (i == 0 && j == 0)//it is the first div, load the volume
                         {
@@ -77,12 +76,24 @@ and open the template in the editor.
                         }
                     }
             }
-            
+
             //returns an index that represent the slice number, given his position            
-            function sliceIndex(x,y,ny,nx,gap)
+            function sliceIndex(x, y, ny, nx, gap)
             {
-                return (x+y*nx)*gap;
+                var indx = 0;
+                if (gap == -1)//gap automático
+                {
+                    var sizeVolume = volumet.dimensions[norientation];
+                    gap = sizeVolume/(nx*ny);//calculate the gap
+                    indx = (x + y * nx) * gap;
+                    if(x==nx-1 && y==ny)//it is the last
+                        indx=sizeVolume-1;
+                }
+                else
+                    indx = (x + y * nx) * gap
+                return indx;
             }
+
             function createRenderers(nrow, ncol)
             {
                 //indice do volume atual                
@@ -94,27 +105,27 @@ and open the template in the editor.
                             var nameDiv = "div" + i + "x" + j;
                             slicet = new X.renderer2D();
                             volumet = new X.volume();
-                            var indx =  (i * nrow + j) * gapping;
+                            var indx = (i * nrow + j) * gapping;
                             //if it is the last slice show the last slice in the volume
-                            if (i == ncol-1 && j == nrow-1)
+                            if (i == ncol - 1 && j == nrow - 1)
                                 indx = sizeVolume - 1;
                             renderers.push(create2DRender(nameDiv, indx));
                         }
                     }
             }
-            function create2DRender(container,index)
-            {                        
+            function create2DRender(container, index)
+            {
                 //alert(index);
                 slicet.container = container;
                 slicet.orientation = orientation;
                 slicet.init();
-                
+
                 //volumet.fileData = volumes[0].image; //It is not possible in XTK
-                
-                volumet.file= loadParammeter("volumePath");
+
+                volumet.file = loadParammeter("volumePath");
                 volumes.push(volumet);//add a volume if it is not the 
                 //last div (one more was added innitially)
-                
+
                 slicet.add(volumet);
                 //slicet.render();
                 volumet.indexZ = index;
@@ -127,10 +138,9 @@ and open the template in the editor.
 
             function renderSlices() {
                 for (var i = 1; i < rows * columns; i++)
-                    {
-                        
-                        renderers[i].render();
-                    }
+                {
+                    renderers[i].render();
+                }
             }
 
 
