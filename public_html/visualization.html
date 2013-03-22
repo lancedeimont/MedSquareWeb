@@ -18,6 +18,7 @@ MedSquare Web
         <link rel="stylesheet" href="CSS/normalize.css">
         <link rel="stylesheet" href="CSS/mainCss.css">
         <link rel="stylesheet" href="CSS/visualization.css">
+        <script src="js/msqfunctions.js"></script> 
 
         <script type="text/javascript" src="libs/dat.gui.js"> </script>
         
@@ -192,7 +193,7 @@ MedSquare Web
             //
             // create a X.volume
             
-            volume.file =  'data/sivT1.nii'; // 'http://x.babymri.org/?vol.nrrd'; //'sivT1.nii'; //'data/vessels.nii';//sivT1.nii';//'http://x.babymri.org/?vol.nrrd';
+            volume.file = loadParammeter("volumePath") //'data/sivT1.nii'; // 'http://x.babymri.org/?vol.nrrd'; //'sivT1.nii'; //'data/vessels.nii';//sivT1.nii';//'http://x.babymri.org/?vol.nrrd';
             
             sliceAxial.add(volume);
   

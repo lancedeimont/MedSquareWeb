@@ -37,11 +37,12 @@ and open the template in the editor.
             //defines if the browser can use WebGl
             _webGLFriendly = true;
             currentImage='data/sivT1.nii';
-            sessionStorage.setItem("volumePath",currentImage);
+            
             sessionStorage.setItem("webGL",true);
             volume = new X.volume();
             tst="principal";
 
+            sessionStorage.setItem("volumePath",currentImage);
             //functions to show the mosaic dialog
             $(function(){
                 var rows=$( "#rows" ),
@@ -70,6 +71,7 @@ and open the template in the editor.
                             sessionStorage.setItem("rows", rows.val());
                             sessionStorage.setItem("columns", columns.val());
                             sessionStorage.setItem("gapping",gapping.val());
+                            sessionStorage.setItem("volumePath",currentImage);
                             
                             $( this ).dialog( "close" );
                             //load page of mosaic view
@@ -90,6 +92,7 @@ and open the template in the editor.
                 close: function() {
                     allFields.val( "" ).removeClass( "ui-state-error" );
                 }
+                
             });
 
             
@@ -103,6 +106,10 @@ and open the template in the editor.
                     return true;
                 }
             }
+            
+            $("#automaticCB").click(function(){
+                
+            })
         });
             
         //loads an image saved in the server
@@ -114,6 +121,7 @@ and open the template in the editor.
                         
         $(function() {
             $("#btnOpen").button().click(function() {
+                
                 loadWebFile('http://x.babymri.org/?vol.nrrd');
                 document.getElementById('frVisualiz').contentWindow.showVolume();
             });
@@ -134,6 +142,7 @@ and open the template in the editor.
             });
 
             $("#btnUpdate").button().click(function(){
+                $("#gapping").toggle();
             });
         });
         </script>
@@ -159,6 +168,10 @@ and open the template in the editor.
                     <label class="image-information-field">
                         Columns
                         <input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
+                    </label>
+                    <label>
+                        <input type="checkbox" name="automatic" id="automaticCB" value="true" class="text ui-widget-content ui-corner-all"/>
+                        Automatic gap
                     </label>
                     <label class="image-information-field">
                         Gap between slices

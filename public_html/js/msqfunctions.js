@@ -29,3 +29,7 @@ function sliceIndex(x, y, ny, nx, gap, volumDimens)
         indx = (x + y * nx) * gap;
     return indx;
 }
+
+function loadParammeter(v) {
+    return sessionStorage.getItem(v);
+}
