@@ -84,18 +84,19 @@ and open the template in the editor.
                 if (gap == -1)//gap automático
                 {
                     var sizeVolume = volumet.dimensions[norientation];
-                    gap = sizeVolume/(nx*ny);//calculate the gap
+                    gap = sizeVolume / (nx * ny);//calculate the gap
                     indx = (x + y * nx) * gap;
-                    if(x==nx-1 && y==ny-1)//it is the last
-                        indx=sizeVolume-1;
+                    if (x == nx - 1 && y == ny - 1)//it is the last
+                        indx = sizeVolume - 1;
                 }
                 else
-                    indx = (x + y * nx) * gap
+                    indx = (x + y * nx) * gap;
                 return indx;
             }
 
             function createRenderers(nrow, ncol)
             {
+                var sizeVolume = volumet.dimensions[norientation];
                 //indice do volume atual                
                 for (var i = 0; i < ncol; i++)
                     for (var j = 0; j < nrow; j++)
@@ -107,7 +108,7 @@ and open the template in the editor.
                             volumet = new X.volume();
                             var indx = (i * nrow + j) * gapping;
                             //if it is the last slice show the last slice in the volume
-                            if (i == ncol - 1 && j == nrow - 1)
+                            if ((i == ncol - 1) && (j == nrow - 1))
                                 indx = sizeVolume - 1;
                             renderers.push(create2DRender(nameDiv, indx));
                         }
@@ -115,7 +116,6 @@ and open the template in the editor.
             }
             function create2DRender(container, index)
             {
-                //alert(index);
                 slicet.container = container;
                 slicet.orientation = orientation;
                 slicet.init();
@@ -137,12 +137,14 @@ and open the template in the editor.
             }
 
             function renderSlices() {
-                for (var i = 1; i < rows * columns; i++)
-                {
-                    renderers[i].render();
-                }
+                for (var j = 0; j < rows; j++)
+                    for (var i = 0; i < columns; i++)//FIXME i< .. +1?
+                    {
+                        var ind=i+j*columns;
+                        renderers[ind].render();                        
+                        volumes[ind].indexZ=sliceIndex(i, j, rows, columns, gapping);
+                    }
             }
-
 
 
             window.onload = function() {
@@ -151,8 +153,9 @@ and open the template in the editor.
                 //renderers[0].render();      
 //                renderSlices();
                 //when the first renderer is loaded all the others will be rendered
+                createRenderers(rows, columns);
                 slice.onShowtime = function() {
-                    createRenderers(rows, columns);
+                    
                     renderSlices();
                 };
             };
