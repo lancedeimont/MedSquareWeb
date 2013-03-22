@@ -35,6 +35,7 @@ and open the template in the editor.
             mode=0;
             //defines if the browser can use WebGl
             _webGLFriendly = true;
+            currentImage='data/sivT1.nii';
             sessionStorage.setItem("webGL",true);
             volume = new X.volume();
             tst="principal";
@@ -67,7 +68,7 @@ and open the template in the editor.
                             sessionStorage.setItem("rows", rows.val());
                             sessionStorage.setItem("columns", columns.val());
                             sessionStorage.setItem("gapping",gapping.val());
-                            
+                            sessionStorage.setItem("volumePath",currentImage);
                             $( this ).dialog( "close" );
                             //load page of mosaic view
                             var ifrm=document.getElementById("frVisualiz");
