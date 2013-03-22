@@ -7,8 +7,17 @@ and open the template in the editor.
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--Qunit to do automatic tests -->
+        <link rel="stylesheet" href="qunit-1.11.0.css"> 
+        <script src="libs/qunit-1.11.0.js"></script>
+        <script src="tests/tests.js"></script>
+        <script src="js/msqfunctions.js"></script>
     </head>
     <body>
-        <div>TODO write content</div>
+        <div>
+        <div id="qunit">
+        </div>
+        <div id="qunit-fixture" style="width: 100%"></div>
+        </div>
     </body>
 </html>

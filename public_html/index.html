@@ -17,6 +17,7 @@ and open the template in the editor.
         
         <!--XTK to visualizate medical images, JQuery for the controls -->
         <script type="text/javascript" src="libs/xtk.js"></script>
+        <script src="js/msqfunctions.js"></script> 
         
         <link rel="stylesheet" href="CSS/main.css">
         <link rel="stylesheet" href="CSS/normalize.css">
@@ -27,7 +28,7 @@ and open the template in the editor.
         <!--Qunit to do automatic tests -->
         <link rel="stylesheet" href="qunit-1.11.0.css"> 
         <script src="libs/qunit-1.11.0.js"></script>
-        <script src="tests.js"></script>
+        <script src="tests/tests.js"></script>
         
         <script>
             //global variables
@@ -36,6 +37,7 @@ and open the template in the editor.
             //defines if the browser can use WebGl
             _webGLFriendly = true;
             currentImage='data/sivT1.nii';
+            sessionStorage.setItem("volumePath",currentImage);
             sessionStorage.setItem("webGL",true);
             volume = new X.volume();
             tst="principal";
@@ -68,7 +70,7 @@ and open the template in the editor.
                             sessionStorage.setItem("rows", rows.val());
                             sessionStorage.setItem("columns", columns.val());
                             sessionStorage.setItem("gapping",gapping.val());
-                            sessionStorage.setItem("volumePath",currentImage);
+                            
                             $( this ).dialog( "close" );
                             //load page of mosaic view
                             var ifrm=document.getElementById("frVisualiz");
@@ -90,16 +92,7 @@ and open the template in the editor.
                 }
             });
 
-            function checkLength( o, n, min, max ) {
-                if ( o.val().length > max || o.val().length < min ) {
-                    o.addClass( "ui-state-error" );
-                    updateTips( "Length of " + n + " must be between " +
-                    min + " and " + max + "." );
-                    return false;
-                } else {
-                    return true;
-                }
-            }
+            
 
             function checkRegexp( o, regexp, n ) {
                 if ( !( regexp.test( o.val() ) ) ) {
