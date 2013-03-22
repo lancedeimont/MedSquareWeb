@@ -75,6 +75,11 @@ and open the template in the editor.
                             renderers.push(slice);
                         }
                     }
+                    $('<div>', {
+                            id: "divSpace"+i,
+                            style: "width :" + $(window).width() + "px; height: 5px;",
+                            html: "<br/>"
+                        }).appendTo('#mosaicDiv');
             }
 
             //returns an index that represent the slice number, given his position            
