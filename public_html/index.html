@@ -70,7 +70,10 @@ and open the template in the editor.
                             //saving values to session variables
                             sessionStorage.setItem("rows", rows.val());
                             sessionStorage.setItem("columns", columns.val());
-                            sessionStorage.setItem("gapping",gapping.val());
+                            if($("#automaticCB").is(":checked"))
+                                sessionStorage.setItem("gapping",-1);                            
+                            else
+                                sessionStorage.setItem("gapping",gapping.val());                            
                             sessionStorage.setItem("volumePath",currentImage);
                             
                             $( this ).dialog( "close" );
@@ -107,7 +110,18 @@ and open the template in the editor.
                 }
             }
             
-            $("#automaticCB").click(function(){
+            $("#automaticCB").click(function(){    
+                
+                if($("#automaticCB").is(":checked"))
+                    {
+                        $("#labGapping").attr('disabled',true);
+                        $("#gappingTxt").attr('disabled',true).parent().css({color:'#ccc'});
+                    }
+                    else
+                    {
+                        $("#labGapping").attr('disabled',false);
+                        $("#gappingTxt").attr('disabled',false).parent().css({color:'#000'});
+                    }
                 
             })
         });
@@ -142,7 +156,7 @@ and open the template in the editor.
             });
 
             $("#btnUpdate").button().click(function(){
-                $("#gapping").toggle();
+                
             });
         });
         </script>
@@ -173,9 +187,9 @@ and open the template in the editor.
                         <input type="checkbox" name="automatic" id="automaticCB" value="true" class="text ui-widget-content ui-corner-all"/>
                         Automatic gap
                     </label>
-                    <label class="image-information-field">
+                    <label class="image-information-field" id="labGapping" >
                         Gap between slices
-                        <input type="text" name="gapping" id="gapping" class="text ui-widget-content ui-corner-all" />
+                        <input type="text" name="gappingTxt" id="gappingTxt" class="text ui-widget-content ui-corner-all" />
                     </label>
                 </fieldset>
             </form>
