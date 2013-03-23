@@ -15,7 +15,7 @@ function checkLength(o, n, min, max) {
 
 //returns an index that represent the slice number, given his position            
 function sliceIndex(x, y, ny, nx, gap, volumDimens)
-{
+{    
     var indx = 0;
     if (gap == -1)//gap automático
     {

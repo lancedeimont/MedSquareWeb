@@ -47,7 +47,7 @@ and open the template in the editor.
             $(function(){
                 var rows=$( "#rows" ),
                 columns=$( "#columns" ),
-                gapping=$("#gapping"),
+                gapping=$("#gappingTxt"),
                 allFields = $( [] ).add( rows ).add( columns );
                 $( "#dialog-mosaic" ).dialog({
                     autoOpen: false,
@@ -70,11 +70,15 @@ and open the template in the editor.
                             //saving values to session variables
                             sessionStorage.setItem("rows", rows.val());
                             sessionStorage.setItem("columns", columns.val());
+                            
                             if($("#automaticCB").is(":checked"))
-                                sessionStorage.setItem("gapping",-1);                            
+                                sessionStorage.setItem("gapping","-1");                            
                             else
-                                sessionStorage.setItem("gapping",gapping.val());                            
+                                sessionStorage.setItem("gapping",$("#gappingTxt").val());                            
                             sessionStorage.setItem("volumePath",currentImage);
+                            
+                            alert(gapping.val());
+                            alert(loadParammeter("gapping"));
                             
                             $( this ).dialog( "close" );
                             //load page of mosaic view
