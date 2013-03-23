@@ -14,155 +14,155 @@ and open the template in the editor.
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>-->
         <!-- using local libraries-->
         <script src="libs/jquery-ui.js"></script> 
-        
+
         <!--XTK to visualizate medical images, JQuery for the controls -->
         <script type="text/javascript" src="libs/xtk.js"></script>
         <script src="js/msqfunctions.js"></script> 
-        
+
         <link rel="stylesheet" href="CSS/main.css">
         <link rel="stylesheet" href="CSS/normalize.css">
         <link rel="stylesheet" href="CSS/mainCss.css">
 
         <script type="text/javascript" src="libs/dat.gui.js"></script>
-        
+
         <!--Qunit to do automatic tests -->
         <link rel="stylesheet" href="qunit-1.11.0.css"> 
         <script src="libs/qunit-1.11.0.js"></script>
         <script src="tests/tests.js"></script>
-        
+
         <script>
             //global variables
             //modes: 0=MPR, 1=mosaic
-            mode=0;
+            mode = 0;
             //defines if the browser can use WebGl
             _webGLFriendly = true;
-            currentImage='data/sivT1.nii';
-            
-            sessionStorage.setItem("webGL",true);
-            volume = new X.volume();
-            tst="principal";
+            currentImage = 'data/sivT1.nii';
 
-            sessionStorage.setItem("volumePath",currentImage);
+            sessionStorage.setItem("webGL", true);
+            volume = new X.volume();
+            tst = "principal";
+
+            sessionStorage.setItem("volumePath", currentImage);
             //functions to show the mosaic dialog
-            $(function(){
-                var rows=$( "#rows" ),
-                columns=$( "#columns" ),
-                gapping=$("#gappingTxt"),
-                allFields = $( [] ).add( rows ).add( columns );
-                $( "#dialog-mosaic" ).dialog({
+            $(function() {
+                var rows = $("#rows"),
+                        columns = $("#columns"),
+                        gapping = $("#gappingTxt"),
+                        allFields = $([]).add(rows).add(columns);
+                $("#dialog-mosaic").dialog({
                     autoOpen: false,
                     height: 330,
                     width: 400,
                     modal: true,
                     buttons: {
                         "Start mosaic mode": function() {
-                        var bValid = true;
-                        allFields.removeClass( "ui-state-error" );
+                            var bValid = true;
+                            allFields.removeClass("ui-state-error");
 
-                        bValid = bValid && checkLength( rows, "rows", 1, 2 );
-                        bValid = bValid && checkLength( columns, "columns", 1, 2 );
+                            bValid = bValid && checkLength(rows, "rows", 1, 2);
+                            bValid = bValid && checkLength(columns, "columns", 1, 2);
 
-                        // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
-                        bValid = bValid && checkRegexp( rows, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );
-                        bValid = bValid && checkRegexp( columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );
-                            
-                        if ( bValid ) {//starting mosaic mode
-                            //saving values to session variables
-                            sessionStorage.setItem("rows", rows.val());
-                            sessionStorage.setItem("columns", columns.val());
-                            
-                            if($("#automaticCB").is(":checked"))
-                                sessionStorage.setItem("gapping","-1");                            
-                            else
-                                sessionStorage.setItem("gapping",$("#gappingTxt").val());                            
-                            sessionStorage.setItem("volumePath",currentImage);
-                            
-                            alert(gapping.val());
-                            alert(loadParammeter("gapping"));
-                            
-                            $( this ).dialog( "close" );
-                            //load page of mosaic view
-                            var ifrm=document.getElementById("frVisualiz");
-                            ifrm.setAttribute("src","mosaicView.html?rows="+rows+"&columns="+columns);
-                            mode=1;
-                            //change button's name
-                            document.getElementById("btnMosaic").innerHTML="MPR mode";
-                        }else
+                            // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+                            bValid = bValid && checkRegexp(rows, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero.");
+                            bValid = bValid && checkRegexp(columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero.");
+
+                            if (bValid) {//starting mosaic mode
+                                //saving values to session variables
+                                sessionStorage.setItem("rows", rows.val());
+                                sessionStorage.setItem("columns", columns.val());
+
+                                if ($("#automaticCB").is(":checked"))
+                                    sessionStorage.setItem("gapping", "-1");
+                                else
+                                    sessionStorage.setItem("gapping", $("#gappingTxt").val());
+                                sessionStorage.setItem("volumePath", currentImage)
+
+                                $(this).dialog("close");
+                                //load page of mosaic view
+                                var ifrm = document.getElementById("frVisualiz");
+                                ifrm.setAttribute("src", "mosaicView.html?rows=" + rows + "&columns=" + columns);
+                                mode = 1;
+                                //change button's name
+                                document.getElementById("btnMosaic").innerHTML = "MPR mode";
+                            } else
                             {
                                 alert('The values must to be numbers');
                             }
+                        },
+                        Cancel: function() {
+                            $(this).dialog("close");
+                        }
                     },
-                    Cancel: function() {
-                        $( this ).dialog( "close" );
+                    close: function() {
+                        allFields.val("").removeClass("ui-state-error");
                     }
-                },
-                close: function() {
-                    allFields.val( "" ).removeClass( "ui-state-error" );
-                }
-                
-            });
 
-            
+                });
 
-            function checkRegexp( o, regexp, n ) {
-                if ( !( regexp.test( o.val() ) ) ) {
-                    o.addClass( "ui-state-error" );
-                    updateTips( n );
-                    return false;
-                } else {
-                    return true;
+
+
+                function checkRegexp(o, regexp, n) {
+                    if (!(regexp.test(o.val()))) {
+                        o.addClass("ui-state-error");
+                        updateTips(n);
+                        return false;
+                    } else {
+                        return true;
+                    }
                 }
-            }
-            
-            $("#automaticCB").click(function(){    
-                
-                if($("#automaticCB").is(":checked"))
+
+                $("#automaticCB").click(function() {
+
+                    if ($("#automaticCB").is(":checked"))
                     {
-                        $("#labGapping").attr('disabled',true);
-                        $("#gappingTxt").attr('disabled',true).parent().css({color:'#ccc'});
+                        $("#labGapping").attr('disabled', true);
+                        $("#gappingTxt").attr('disabled', true).parent().css({color: '#ccc'});
                     }
                     else
                     {
-                        $("#labGapping").attr('disabled',false);
-                        $("#gappingTxt").attr('disabled',false).parent().css({color:'#000'});
+                        $("#labGapping").attr('disabled', false);
+                        $("#gappingTxt").attr('disabled', false).parent().css({color: '#000'});
                     }
-                
-            })
-        });
-            
-        //loads an image saved in the server
-        function loadWebFile(filePath){
-            //volume=new X.volume();
-            //volume.file = filePath;
-            sessionStorage.setItem("volumePath", filePath);
-        };
-                        
-        $(function() {
-            $("#btnOpen").button().click(function() {
-                
-                loadWebFile('http://x.babymri.org/?vol.nrrd');
-                document.getElementById('frVisualiz').contentWindow.showVolume();
+
+                })
             });
 
-            $("#btnMosaic").button().click(function(){
-                if(mode===0)//we are in mpr mode
-                {//show a dialog and load mosaic view
-                    $( "#dialog-mosaic" ).dialog( "open" );                     
-                }                
-                else
-                {//mosaic mode
-                    //load page of mpr view
-                    var ifrm=document.getElementById("frVisualiz");
-                    ifrm.setAttribute("src","visualization.html");
-                    mode=0;
-                    document.getElementById("btnMosaic").innerHTML="Mosaic Mode";
-                }
-            });
+            //loads an image saved in the server
+            function loadWebFile(filePath) {
+                //volume=new X.volume();
+                //volume.file = filePath;
+                currentImage = filePath;
+                sessionStorage.setItem("volumePath", filePath);
 
-            $("#btnUpdate").button().click(function(){
-                
+            }
+            ;
+
+            $(function() {
+                $("#btnOpen").button().click(function() {
+
+                    loadWebFile('http://x.babymri.org/?vol.nrrd');
+                    document.getElementById('frVisualiz').contentWindow.showVolume();
+                });
+
+                $("#btnMosaic").button().click(function() {
+                    if (mode === 0)//we are in mpr mode
+                    {//show a dialog and load mosaic view
+                        $("#dialog-mosaic").dialog("open");
+                    }
+                    else
+                    {//mosaic mode
+                        //load page of mpr view
+                        var ifrm = document.getElementById("frVisualiz");
+                        ifrm.setAttribute("src", "visualization.html");
+                        mode = 0;
+                        document.getElementById("btnMosaic").innerHTML = "Mosaic Mode";
+                    }
+                });
+
+                $("#btnUpdate").button().click(function() {
+
+                });
             });
-        });
         </script>
     </head>
 
@@ -199,16 +199,16 @@ and open the template in the editor.
             </form>
         </div>
         <!-- maindiv should be  bug in netbeans, do not recognize main-->
-        
+
         <div id="mainDiv">
             <iframe id="frVisualiz" src="visualization.html" style="width: 100%; height: 600px"></iframe>
         </div>
 
         <!-- Divs for tests-->
         <div style="width: 100%; position: absolute; top: 900px">
-        <div id="qunit">
-        </div>
-        <div id="qunit-fixture" style="width: 100%"></div>
+            <div id="qunit">
+            </div>
+            <div id="qunit-fixture" style="width: 100%"></div>
         </div>
     </body>
 </html>
