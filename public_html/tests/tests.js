@@ -14,6 +14,12 @@ test("sliceIndex",function(){
     ok(sliceIndex(2, 3, 4, 3, -1, 10)==9,"Passed!");
     ok(sliceIndex(4, 2, 4, 3, 1, 12)==10,"Passed!");
 })
+
+test("indexOfSlices",function(){
+    
+    
+})
+
 test("checkLength",function(){
     var rows =$( "#rows" )
     ok(checkLength( rows, "rows", 1, 3 ));
