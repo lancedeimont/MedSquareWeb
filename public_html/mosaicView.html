@@ -62,9 +62,10 @@ and open the template in the editor.
                         var nameDiv = "div" + i + "x" + j;
                         $('<div>', {
                             id: nameDiv,
-                            style: "float: left; width :" + widthDiv + "px; height:" + heightDiv + "px;",
+                            class: "mossaicDiv",
+                            style: "float: left; width :" + widthDiv + "px;"
                             //html: "div" + i + "x" + j
-                        }).appendTo('#mosaicDiv');
+                        }).css( {borderWidth: '6px'}).appendTo('#mosaicDiv');
 
                         if (i == 0 && j == 0)//it is the first div, load the volume
                         {
@@ -75,7 +76,11 @@ and open the template in the editor.
                             renderers.push(slice);
                         }
                     }
-                    
+                    $('<div>', {
+                            id: "DivSpace"+i,                            
+                            style: "width : 100%; height:5px;",
+                            html: "<br/>"
+                        }).appendTo('#mosaicDiv');
             }
 
             

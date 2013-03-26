@@ -124,7 +124,7 @@ and open the template in the editor.
                         $("#gappingTxt").attr('disabled', false).parent().css({color: '#000'});
                     }
 
-                })
+                });
             });
 
             //loads an image saved in the server
@@ -141,7 +141,8 @@ and open the template in the editor.
                 $("#btnOpen").button().click(function() {
 
                     loadWebFile('http://x.babymri.org/?vol.nrrd');
-                    document.getElementById('frVisualiz').contentWindow.showVolume();
+                    if (mode == 0)
+                        document.getElementById('frVisualiz').contentWindow.showVolume();
                 });
 
                 $("#btnMosaic").button().click(function() {
@@ -188,12 +189,12 @@ and open the template in the editor.
                         <input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
                     </label>
                     <label>
-                        <input type="checkbox" name="automatic" id="automaticCB" value="true" class="text ui-widget-content ui-corner-all"/>
+                        <input type="checkbox" name="automatic" id="automaticCB" checked="checked" class="text ui-widget-content ui-corner-all"/>
                         Automatic gap
                     </label>
-                    <label class="image-information-field" id="labGapping" >
+                    <label class="image-information-field" id="labGapping">
                         Gap between slices
-                        <input type="text" name="gappingTxt" id="gappingTxt" class="text ui-widget-content ui-corner-all" />
+                        <input type="text" name="gappingTxt" id="gappingTxt" class="text ui-widget-content ui-corner-all" style="color:#ccc" />
                     </label>
                 </fieldset>
             </form>
@@ -204,11 +205,11 @@ and open the template in the editor.
             <iframe id="frVisualiz" src="visualization.html" style="width: 100%; height: 600px"></iframe>
         </div>
 
-        <!-- Divs for tests-->
+        <!-- Divs for tests
         <div style="width: 100%; position: absolute; top: 900px">
             <div id="qunit">
             </div>
             <div id="qunit-fixture" style="width: 100%"></div>
-        </div>
+        </div>-->
     </body>
 </html>

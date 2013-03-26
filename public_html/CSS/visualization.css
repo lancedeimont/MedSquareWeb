@@ -25,3 +25,10 @@
 	height: 500px;
 	width: 50%;
 }
+
+.mossaicDiv {
+    border-width: 3px;
+    border-color: #000;
+}
+
+label.disabled { color: #aaa; }
