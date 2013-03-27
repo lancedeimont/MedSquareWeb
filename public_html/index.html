@@ -28,7 +28,7 @@
 
         <script>
             //global variables
-            //modes: 0=MPR, 1=mosaic
+            //modes: 0=MPR, 1=mosaic, -1=any page without a special mode
             mode = 0;
             //defines if the browser can use WebGl
             _webGLFriendly = true;
@@ -78,8 +78,10 @@
                                 var ifrm = document.getElementById("frVisualiz");
                                 ifrm.setAttribute("src", "mosaicView.html?rows=" + rows + "&columns=" + columns);
                                 mode = 1;
-                                //change button's name
-                                document.getElementById("btnMosaic").innerHTML = "MPR mode";
+                                
+                                //show and hide buttons in the menu
+                                $("#btnMosaic").hide();
+                                $("#btnMPR").show();
                             } else
                             {
                                 alert('The values must to be numbers');
@@ -137,22 +139,23 @@
                 $("#btnOpen").button().click(function() {
 
                     loadWebFile('http://x.babymri.org/?vol.nrrd');
-                    if (mode == 0)
+                    if (mode === 0)
                         document.getElementById('frVisualiz').contentWindow.showVolume();
                 });
-
-                $("#btnMosaic").button().click(function() {
-                    if (mode === 0)//we are in mpr mode
-                    {//show a dialog and load mosaic view
-                        $("#dialog-mosaic").dialog("open");
-                    }
-                    else
-                    {//mosaic mode
-                        //load page of mpr view
+                $("#btnMPR").button().click(function() {
+                    if (mode !== 0)//it is not in mpr mode
+                    {
                         var ifrm = document.getElementById("frVisualiz");
                         ifrm.setAttribute("src", "visualization.html");
-                        mode = 0;
-                        document.getElementById("btnMosaic").innerHTML = "Mosaic Mode";
+                        mode = 0;                        
+                        $("#btnMPR").hide();
+                        $("#btnMosaic").show();
+                    }
+                });
+                $("#btnMosaic").button().click(function() {
+                    if (mode !== 1)//currently we are in mpr mode loading mosaic
+                    {//show a dialog and load mosaic view
+                        $("#dialog-mosaic").dialog("open");
                     }
                 });
 
@@ -162,8 +165,14 @@
                 $("#btnAbout").button().click(function() {
                     var ifrm = document.getElementById("frVisualiz");
                     ifrm.setAttribute("src", "about.html");
+                    $("#btnMPR").show();
+                    $("#btnMosaic").show();
+                    mode=-1;
                 });
             });
+            window.onload = function() {
+                $("#btnMPR").hide();
+            };
         </script>
     </head>
 
@@ -174,8 +183,9 @@
         <nav class="tools">
             <button id="btnOpen" class="tool">Open</button>
             <button id="btnUpdate" class="tool">Update</button>
+            <button id="btnMPR" class="tool" hidden="hidden">MPR Mode</button>
             <button id="btnMosaic" class="tool">Mosaic Mode</button>
-            <button id="btnAbout" class="tool" style="float:right;"><img src="images/iconInter.png" height="26px" alt="about"></button>
+            <button id="btnAbout" class="tool" style="float:right;"><img src="images/iconInter.png" height="26" alt="about"></button>
 
         </nav>
         <div id="dialog-mosaic" title="Mosaic visualization">
