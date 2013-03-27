@@ -1,2 +1,3 @@
 #!/bin/bash
-scp -r ./public_html/* miguelgalarreta@vision.ime.usp.br:/home/miguelgalarreta/www/medsquareweb/
+cd public_html;
+rsync -a --exclude=data miguelgalarreta@vision.ime.usp.br:/home/miguelgalarreta/www/medsquareweb/
