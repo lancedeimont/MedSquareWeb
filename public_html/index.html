@@ -163,6 +163,10 @@ and open the template in the editor.
                 $("#btnUpdate").button().click(function() {
 
                 });
+                $("#btnAbout").button().click(function() {
+                    var ifrm = document.getElementById("frVisualiz");
+                    ifrm.setAttribute("src", "about.html");
+                });
             });
         </script>
     </head>
@@ -175,6 +179,8 @@ and open the template in the editor.
             <button id="btnOpen" class="tool">Open</button>
             <button id="btnUpdate" class="tool">Update</button>
             <button id="btnMosaic" class="tool">Mosaic Mode</button>
+            <button id="btnAbout" class="tool" style="float:right;">About</button>
+
         </nav>
         <div id="dialog-mosaic" title="Mosaic visualization">
             <p class="validateTips">All form fields are required.</p>
