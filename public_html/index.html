@@ -143,10 +143,12 @@
 
             $(function() {
                 $("#btnOpen").button().click(function() {
-
-                    loadWebFile('http://x.babymri.org/?vol.nrrd');
-                    if (mode === 0)
-                        document.getElementById('frVisualiz').contentWindow.showVolume();
+                    var ifrm = document.getElementById("frVisualiz");
+                    ifrm.setAttribute("src", "openImg.html");
+                    mode = -1;
+                    //loadWebFile('http://x.babymri.org/?vol.nrrd');
+                    //if (mode === 0)
+                    //    document.getElementById('frVisualiz').contentWindow.showVolume();
                 });
                 $("#btnMPR").button().click(function() {
                     if (mode !== 0)//it is not in mpr mode
