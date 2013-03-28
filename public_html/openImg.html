@@ -21,8 +21,10 @@
         <script>
             $(document).ready(function() {
                 $('#MRIchild').click(function(){
-                    loadWebFile('http://x.babymri.org/?vol.nrrd');                    
-                    
+                    loadWebFile('http://x.babymri.org/?vol.nrrd');                   
+                });
+                $('#MRIchild2').click(function(){
+                    loadWebFile('http://x.babymri.org/?avf.nrrd');                   
                 });
                 $('.webImage').click(function(){
                     parent.loadMPRmode();
@@ -85,6 +87,11 @@
                 <h1>Web Images</h1><br/>
                 <div style="float: left; width: 200px; text-align: center">                    
                     <img id="MRIchild" class="webImage" src="images/MRIchild.png" alt="MRIchild.png" width="200" style="cursor: pointer;"/>                    
+                    <br/>
+                    <h4>child MRI</h4>
+                </div>
+                <div style="float: left; width: 200px; text-align: center">                    
+                    <img id="MRIchild2" class="webImage" src="images/MRIchild2.png" alt="MRIchild2.png" width="200" style="cursor: pointer;"/>                    
                     <br/>
                     <h4>child MRI</h4>
                 </div>
