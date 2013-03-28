@@ -13,8 +13,22 @@
         <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
         <link rel="stylesheet" href="CSS/jquery.fileupload-ui.css">
         <!-- CSS adjustments for browsers with JavaScript disabled -->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        
         <script src="js/msqfunctions.js"></script> 
         <noscript><link rel="stylesheet" href="CSS/jquery.fileupload-ui-noscript.css"></noscript>
+        <script>
+            $(document).ready(function() {
+                $('#MRIchild').click(function(){
+                    loadWebFile('http://x.babymri.org/?vol.nrrd');                    
+                    
+                });
+                $('.webImage').click(function(){
+                    parent.loadMPRmode();
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="navbar navbar-fixed-top">
@@ -65,10 +79,14 @@
                 <!-- The table listing the files available for upload/download -->
                 <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
             </form>
+            
+            <!-- Show the image collection -->
             <div>
-                <span>Web Images</span>
-                <div style="float: left; width: 100px">
-                    <img src="">
+                <h1>Web Images</h1><br/>
+                <div style="float: left; width: 200px; text-align: center">                    
+                    <img id="MRIchild" class="webImage" src="images/MRIchild.png" alt="MRIchild.png" width="200" style="cursor: pointer;"/>                    
+                    <br/>
+                    <h4>child MRI</h4>
                 </div>
             </div>
         </div>

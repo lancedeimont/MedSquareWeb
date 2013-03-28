@@ -24,10 +24,10 @@
 
         <script type="text/javascript" src="libs/dat.gui.js"></script>
 
-        <!--Qunit to do automatic tests -->
+        <!--Qunit to do automatic tests 
         <link rel="stylesheet" href="qunit-1.11.0.css"> 
         <script src="libs/qunit-1.11.0.js"></script>
-        <script src="tests/tests.js"></script>
+        <script src="tests/tests.js"></script>-->
 
         <script>
 
@@ -44,6 +44,17 @@
             volume = new X.volume();
             tst = "principal";
 
+            function loadMPRmode(){
+                if (mode !== 0)//it is not in mpr mode
+                    {
+                        var ifrm = document.getElementById("frVisualiz");
+                        ifrm.setAttribute("src", "visualization.html");
+                        mode = 0;
+                        $("#btnMPR").hide();
+                        $("#btnMosaic").show();
+                    }
+            }
+            
             sessionStorage.setItem("volumePath", currentImage);
             //functions to show the mosaic dialog
             $(function() {
@@ -131,37 +142,20 @@
                 });
             });
 
-            //loads an image saved in the server
-            function loadWebFile(filePath) {
-                //volume=new X.volume();
-                //volume.file = filePath;
-                currentImage = filePath;
-                sessionStorage.setItem("volumePath", filePath);
-
-            }
-            ;
-
             $(function() {
                 $("#btnOpen").button().click(function() {
                     var ifrm = document.getElementById("frVisualiz");
                     ifrm.setAttribute("src", "openImg.html");
                     mode = -1;
                     //show buttons in the menu
-                                $("#btnMosaic").show();
-                                $("#btnMPR").show();
+                    $("#btnMosaic").show();
+                    $("#btnMPR").show();
                     //loadWebFile('http://x.babymri.org/?vol.nrrd');
                     //if (mode === 0)
                     //    document.getElementById('frVisualiz').contentWindow.showVolume();
                 });
                 $("#btnMPR").button().click(function() {
-                    if (mode !== 0)//it is not in mpr mode
-                    {
-                        var ifrm = document.getElementById("frVisualiz");
-                        ifrm.setAttribute("src", "visualization.html");
-                        mode = 0;
-                        $("#btnMPR").hide();
-                        $("#btnMosaic").show();
-                    }
+                    loadMPRmode();
                 });
                 $("#btnMosaic").button().click(function() {
                     if (mode !== 1)//currently we are in mpr mode loading mosaic

@@ -48,3 +48,11 @@ function checkFile(fileName) {
         return false;
     }
 }
+
+//loads an image saved in the server
+function loadWebFile(filePath) {
+    //volume=new X.volume();
+    //volume.file = filePath;
+    currentImage = filePath;
+    sessionStorage.setItem("volumePath", filePath);
+}
