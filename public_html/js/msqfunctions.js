@@ -15,7 +15,7 @@ function checkLength(o, n, min, max) {
 
 //returns an index that represent the slice number, given his position            
 function sliceIndex(x, y, ny, nx, gap, volumDimens)
-{    
+{
     var indx = 0;
     if (gap == -1)//gap automático
     {
@@ -32,4 +32,19 @@ function sliceIndex(x, y, ny, nx, gap, volumDimens)
 
 function loadParammeter(v) {
     return sessionStorage.getItem(v);
+}
+
+function checkFile(fileName) {
+    var fileExtension = "";
+    if (fileName.value.lastIndexOf(".") > 0) {
+        fileExtension = fileName.value.substring(fileName.value.lastIndexOf(".") + 1,
+                fileName.value.length);
+    }
+    if (fileExtension == "gif") {
+        return true;
+    }
+    else {
+        alert("You must select a GIF file for upload");
+        return false;
+    }
 }
