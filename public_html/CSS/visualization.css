@@ -52,6 +52,6 @@ label.disabled { color: #aaa; }
 
 .webImage{
     cursor: pointer; 
-    width: 200px;
-    height:240px;
+    width: 100%;
+    height:95%;
 }

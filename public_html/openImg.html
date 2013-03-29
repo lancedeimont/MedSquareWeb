@@ -35,6 +35,9 @@
                 $('#vessels').click(function() {
                     loadWebFile('data/vessels.nii');
                 });
+                $('#angioMRI').click(function() {
+                    loadWebFile('data/marcel_angio.nii');
+                });
                 $('.webImage').click(function() {
                     parent.loadMPRmode();
                 });
@@ -110,7 +113,7 @@
                     <br/>
                     <h4>child MRI</h4>
                 </div>
-                
+
                 <div class="elementWebImageDiv">
                     <div class="webImageDiv">                    
                         <img id="MRIcerebro" class="webImage" src="images/MRIcerebro.png" alt="MRI cerebro" />                    
@@ -119,19 +122,29 @@
                     <h4>MRI de um cerebro</h4>
                 </div>
                 
-                 <div class="elementWebImageDiv">
+                <div class="elementWebImageDiv">
+                    <div class="webImageDiv" style="width: 250px">                    
+                        <img id="angioMRI" class="webImage" src="images/angioMRI.png" alt="angioMRI" />                    
+                    </div>
+                    <br/>
+                    <h4>angio MRI</h4>
+                </div>
+                
+                <div class="elementWebImageDiv">
                     <div class="webImageDiv">                    
                         <img id="vessels" class="webImage" src="images/vessels.png" alt="vessels" />                    
                     </div>
                     <br/>
                     <h4>blood vessels (110MB)</h4>
-                </div>
+                </div>                
+
                 <br/>
-                <div style="width: 100%">
+
+                <div style="width: 100%; clear: left">
                     <form>
                         <span>Load image from URL</span>
                         <input type="text" id="txtboxURL">
-                        <button type="button" id="btnLoad">Load</button>
+                        <input type="button" id="btnLoad" value="Load">
                     </form>
                 </div>
             </div>
