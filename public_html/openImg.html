@@ -14,19 +14,28 @@
         <link rel="stylesheet" href="CSS/jquery.fileupload-ui.css">
         <!-- CSS adjustments for browsers with JavaScript disabled -->
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
+
+        <link rel="stylesheet" href="CSS/visualization.css">
+
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        
+
         <script src="js/msqfunctions.js"></script> 
         <noscript><link rel="stylesheet" href="CSS/jquery.fileupload-ui-noscript.css"></noscript>
         <script>
             $(document).ready(function() {
-                $('#MRIchild').click(function(){
-                    loadWebFile('http://x.babymri.org/?vol.nrrd');                   
+                $('#MRIchild').click(function() {
+                    loadWebFile('http://x.babymri.org/?vol.nrrd');
                 });
-                $('#MRIchild2').click(function(){
-                    loadWebFile('http://x.babymri.org/?avf.nrrd');                   
+                $('#MRIchild2').click(function() {
+                    loadWebFile('http://x.babymri.org/?avf.nrrd');
                 });
-                $('.webImage').click(function(){
+                $('#MRIcerebro').click(function() {
+                    loadWebFile('data/sivT1.nii');
+                });
+                $('#vessels').click(function() {
+                    loadWebFile('data/vessels.nii');
+                });
+                $('.webImage').click(function() {
                     parent.loadMPRmode();
                 });
             });
@@ -81,19 +90,49 @@
                 <!-- The table listing the files available for upload/download -->
                 <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
             </form>
-            
+
             <!-- Show the image collection -->
             <div>
                 <h1>Web Images</h1><br/>
-                <div style="float: left; width: 200px; text-align: center">                    
-                    <img id="MRIchild" class="webImage" src="images/MRIchild.png" alt="MRIchild.png" width="200" style="cursor: pointer;"/>                    
+                <div class="elementWebImageDiv">
+                    <div class="webImageDiv">                    
+                        <img id="MRIchild" class="webImage" src="images/MRIchild.png" alt="MRIchild"/>                    
+                    </div>
+                    <br/>
+                    <h4>child MRI</h4>
+
+                </div>
+
+                <div class="elementWebImageDiv">
+                    <div class="webImageDiv">                    
+                        <img id="MRIchild2" class="webImage" src="images/MRIchild2.png" alt="MRIchild2" />                    
+                    </div>
                     <br/>
                     <h4>child MRI</h4>
                 </div>
-                <div style="float: left; width: 200px; text-align: center">                    
-                    <img id="MRIchild2" class="webImage" src="images/MRIchild2.png" alt="MRIchild2.png" width="200" style="cursor: pointer;"/>                    
+                
+                <div class="elementWebImageDiv">
+                    <div class="webImageDiv">                    
+                        <img id="MRIcerebro" class="webImage" src="images/MRIcerebro.png" alt="MRI cerebro" />                    
+                    </div>
                     <br/>
-                    <h4>child MRI</h4>
+                    <h4>MRI de um cerebro</h4>
+                </div>
+                
+                 <div class="elementWebImageDiv">
+                    <div class="webImageDiv">                    
+                        <img id="vessels" class="webImage" src="images/vessels.png" alt="vessels" />                    
+                    </div>
+                    <br/>
+                    <h4>blood vessels (110MB)</h4>
+                </div>
+                <br/>
+                <div style="width: 100%">
+                    <form>
+                        <span>Load image from URL</span>
+                        <input type="text" id="txtboxURL">
+                        <button type="button" id="btnLoad">Load</button>
+                    </form>
                 </div>
             </div>
         </div>

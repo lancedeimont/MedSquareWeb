@@ -1,29 +1,29 @@
 .slices-2D {
-	float: left;
-	width: 30%;
+    float: left;
+    width: 30%;
 }
 
 .slice-2D {
-	height: 33%;
-	margin: 0.2em 1em;
+    height: 33%;
+    margin: 0.2em 1em;
 }
 
 .axial {
-	color: red;
+    color: red;
 }
 
 .sagittal {
-	color: green;
+    color: green;
 }
 
 .coronal {
-	color: blue;
+    color: blue;
 }
 
 .slice-3D {
-	float: left;
-	height: 500px;
-	width: 50%;
+    float: left;
+    height: 500px;
+    width: 50%;
 }
 
 .mossaicDiv {
@@ -32,3 +32,26 @@
 }
 
 label.disabled { color: #aaa; }
+
+.elementWebImageDiv{
+    float: left;
+    text-align: center;    
+    margin: 6px;
+}
+
+.webImageDiv{ 
+
+    width: 200px; 
+    height: 250px;
+}
+
+.webImageDiv img{
+    display:block;
+    margin:0 auto;
+}
+
+.webImage{
+    cursor: pointer; 
+    width: 200px;
+    height:240px;
+}
