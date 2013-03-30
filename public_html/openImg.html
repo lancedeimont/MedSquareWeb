@@ -5,7 +5,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Bootstrap CSS Toolkit styles    local:     <link rel="stylesheet" href="CSS/libs/bootstrap.min.css">-->
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
-
         <!-- Generic page styles -->
         <link rel="stylesheet" href="CSS/styleFileupload.css">
         <!-- Bootstrap styles for responsive website layout, supporting different screen sizes -->
@@ -14,37 +13,13 @@
         <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
         <link rel="stylesheet" href="CSS/jquery.fileupload-ui.css">
         <link rel="stylesheet" href="CSS/visualization.css">
-
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>        
 
         <script src="js/msqfunctions.js"></script> 
+        <script src="js/openimgs.js"></script> 
+        
         <noscript><link rel="stylesheet" href="CSS/jquery.fileupload-ui-noscript.css"></noscript>
-        <script>
-            $(document).ready(function() {
-                $('#MRIchild').click(function() {
-                    loadWebFile('http://x.babymri.org/?vol.nrrd');
-                });
-                $('#MRIchild2').click(function() {
-                    loadWebFile('http://x.babymri.org/?avf.nrrd');
-                });
-                $('#MRIcerebro').click(function() {
-                    loadWebFile('data/sivT1.nii');
-                });
-                $('#vessels').click(function() {
-                    loadWebFile('data/vessels.nii');
-                });
-                $('#angioMRI').click(function() {
-                    loadWebFile('data/marcel_angio.nii');
-                });
-                $('.webImage').click(function() {
-                    parent.loadMPRmode();
-                });
-                $('#btnLoad').click(function(){
-                    alert($('txtboxURL').val());
-                    loadWebFile($('txtboxURL').val());
-                });
-            });
-        </script>
+
     </head>
     <body>
         <div class="navbar navbar-fixed-top">
@@ -123,7 +98,7 @@
                     <br/>
                     <h4>MRI de um cerebro</h4>
                 </div>
-                
+
                 <div class="elementWebImageDiv">
                     <div class="webImageDiv" style="width: 250px">                    
                         <img id="angioMRI" class="webImage" src="images/angioMRI.png" alt="angioMRI" />                    
@@ -131,7 +106,7 @@
                     <br/>
                     <h4>angio-MRI</h4>
                 </div>
-                
+
                 <div class="elementWebImageDiv">
                     <div class="webImageDiv">                    
                         <img id="vessels" class="webImage" src="images/vessels.png" alt="vessels" />                    
@@ -213,7 +188,7 @@
         </script>
 
         <script src="libs/jquery-1.9.1.js"></script>
-        
+
         <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
         <script src="libs/fileupload/vendor/jquery.ui.widget.js"></script>
         <!-- The Templates plugin is included to render the upload/download listings -->

@@ -30,18 +30,17 @@
         <script type="text/javascript" src="libs/dat.gui.js"></script>
 
         <script>
-
            //global variables
             //modes: 0=MPR, 1=mosaic, -1=any page without a special mode
-            mode = 0;
-            //defines if the browser can use WebGl
-            _webGLFriendly = true;
+            mode = 0;            
+            
+            //setting a default image
             currentImage = 'data/sivT1.nii';
 
-            sessionStorage.setItem("webGL", true);
-            volume = new X.volume();
-            tst = "principal";
+            //defines if the browser can use WebGl
+            sessionStorage.setItem("webGL", true);         
 
+            //saving currentImage
             sessionStorage.setItem("volumePath", currentImage);
 
             window.onload = function() {
