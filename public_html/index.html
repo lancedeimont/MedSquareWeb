@@ -4,14 +4,17 @@
         <title>MedSquare Web</title> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+        <!-- using local libraries-->
         <link rel="stylesheet" href="CSS/libs/jquery-ui.css">
         <script src="libs/jquery-1.9.1.js"></script>
+        <script src="libs/jquery-ui.js"></script> 
+        
         <!-- using web libraries
         <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">-->
-        <!-- using local libraries-->
-        <script src="libs/jquery-ui.js"></script> 
+        
+        
 
         <!--XTK to visualizate medical images, JQuery for the controls -->
         <script type="text/javascript" src="libs/xtk.js"></script>
@@ -115,18 +118,7 @@
                     }
 
                 });
-
-
-
-                function checkRegexp(o, regexp, n) {
-                    if (!(regexp.test(o.val()))) {
-                        o.addClass("ui-state-error");
-                        updateTips(n);
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
+                
 
                 $("#automaticCB").click(function() {
 

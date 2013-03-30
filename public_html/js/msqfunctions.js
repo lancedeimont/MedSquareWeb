@@ -56,3 +56,13 @@ function loadWebFile(filePath) {
     currentImage = filePath;
     sessionStorage.setItem("volumePath", filePath);
 }
+
+function checkRegexp(o, regexp, n) {
+    if (!(regexp.test(o.val()))) {
+        o.addClass("ui-state-error");
+        updateTips(n);
+        return false;
+    } else {
+        return true;
+    }
+}
