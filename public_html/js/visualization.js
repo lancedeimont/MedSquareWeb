@@ -16,48 +16,6 @@ function showVolume() {
     sliceAxial.render();
 }
 
-$(function() {
-    var rows = $("#rows"),
-            columns = $("#columns"),
-            allFields = $([]).add(rows).add(columns);
-    $("#dialog-mosaic").dialog({
-        autoOpen: false,
-        height: 300,
-        width: 350,
-        modal: true,
-        buttons: {
-            "Start mosaic mode": function() {
-                var bValid = true;
-                allFields.removeClass("ui-state-error");
-
-                bValid = bValid && checkLength(rows.val, "rows", 1, 3);
-                bValid = bValid && checkLength(columns, "columns", 1, 3);
-
-                bValid = bValid && checkRegexp(rows, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero.");
-                // From jquery.validate.js
-                bValid = bValid && checkRegexp(columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero.");
-
-                if (bValid) {
-                    $(this).dialog("close");
-                }
-            },
-            Cancel: function() {
-                $(this).dialog("close");
-            }
-        },
-        close: function() {
-            allFields.val("").removeClass("ui-state-error");
-        }
-    });
-
-    $("#mosaic")
-            .button()
-            .click(function() {
-        $("#dialog-mosaic").dialog("open");
-    });
-});
-
-
 //update all GUI controls created with dat-gui
 function updateGUI() {
     //setting max values to the index of slices and the current index

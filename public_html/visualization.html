@@ -26,26 +26,6 @@ MedSquare Web
 
     </head>
     <body>
-        <div id="dialog-mosaic" title="Mosaic visualization">
-            <p class="validateTips">All form fields are required.</p>
-            <form>
-                <fieldset>
-                    <label>
-                        Rows
-                        <input type="text" name="rows" id="rows" class="text ui-widget-content ui-corner-all" />
-                    </label>
-                    <label>
-                        Columns
-                        <input type="text" name="columns" id="columns" value="" class="text ui-widget-content ui-corner-all" />
-                    </label>
-                    <label>
-                        Gap between slices
-                        <input type="text" name="gapping" id="gapping" class="text ui-widget-content ui-corner-all" />
-                    </label>
-                </fieldset>
-            </form>
-        </div>
-
         <!-- Divs to be used by the 2D renderers-->
         <section class="slices-2D">
             <div id="axialSlice" class="slice-2D axial">
@@ -63,11 +43,6 @@ MedSquare Web
         <section id="3Dslice" class="slice-3D">
             <span>3D</span>
         </section>
-
-        <script>
-
-
-        </script>
 
         <script>
             volume = new X.volume();
