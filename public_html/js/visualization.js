@@ -38,7 +38,6 @@ $(function() {
                 bValid = bValid && checkRegexp(columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero.");
 
                 if (bValid) {
-                    alert('starting mosaic mode')
                     $(this).dialog("close");
                 }
             },
@@ -57,7 +56,6 @@ $(function() {
         $("#dialog-mosaic").dialog("open");
     });
 });
-
 
 
 //update all GUI controls created with dat-gui
@@ -167,4 +165,21 @@ function initializeSlices()
     sliceCoronal.container = 'coronalSlice';
     sliceCoronal.orientation = 'Y';
     sliceCoronal.init();
+}
+
+function redrawAll() {
+    //
+    // add the volume to the other 3 renderers
+    //
+    sliceSagittal.add(volume);
+    sliceCoronal.add(volume);
+
+
+    if (_webGLFriendly) {
+        threeD.add(volume);
+        threeD.render();
+    }
+    sliceCoronal.render();
+    sliceSagittal.render();
+    updateGUI();
 }

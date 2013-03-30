@@ -86,11 +86,8 @@ MedSquare Web
 
             initializeSlices();
 
-            //
             // THE VOLUME DATA
-            //
             // create a X.volume
-
             volume.file = loadParammeter("volumePath");
             sliceAxial.add(volume);
             // start the loading/rendering
@@ -99,20 +96,7 @@ MedSquare Web
             // the onShowtime method gets executed after all files were fully loaded and
             // just before the first rendering attempt
             sliceAxial.onShowtime = function() {
-                //
-                // add the volume to the other 3 renderers
-                //
-                sliceSagittal.add(volume);
-                sliceCoronal.add(volume);
-
-
-                if (_webGLFriendly) {
-                    threeD.add(volume);
-                    threeD.render();
-                }
-                sliceCoronal.render();
-                sliceSagittal.render();
-                updateGUI();
+                redrawAll();                
             };
 
             buildGUI();
