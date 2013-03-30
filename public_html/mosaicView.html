@@ -1,7 +1,3 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html>
     <head>
@@ -63,8 +59,7 @@ and open the template in the editor.
                         $('<div>', {
                             id: nameDiv,
                             class: "mossaicDiv",
-                            style: "float: left; width :" + widthDiv + "px;"
-                            //html: "div" + i + "x" + j
+                            style: "float: left; width :" + widthDiv + "px;"                           
                         }).css( {borderWidth: '6px'}).appendTo('#mosaicDiv');
 
                         if (i == 0 && j == 0)//it is the first div, load the volume
@@ -111,7 +106,7 @@ and open the template in the editor.
                 slicet.orientation = orientation;
                 slicet.init();
 
-                //volumet.fileData = volumes[0].image; //It is not possible in XTK
+                //volumet.fileData = volumes[0].image; //IMPORTANT!, It is not possible in XTK
 
                 volumet.file = loadParammeter("volumePath");
                 volumes.push(volumet);//add a volume if it is not the 
@@ -137,8 +132,6 @@ and open the template in the editor.
             window.onload = function() {
                 createDivs(rows, columns);
 
-                //renderers[0].render();      
-//                renderSlices();
                 //when the first renderer is loaded all the others will be rendered
                 createRenderers(rows, columns);
                 slice.onShowtime = function() {

@@ -83,7 +83,7 @@ MedSquare Web
                       bValid = bValid && checkLength( columns, "columns", 1, 3 );                      
 
                       bValid = bValid && checkRegexp( rows, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );
-                      // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+                      // From jquery.validate.js
                       bValid = bValid && checkRegexp( columns, /^([0-9]*[1-9][0-9]*)/, "Rows and columns must to be a number different of zero." );                      
 
                       if ( bValid ) {
@@ -136,8 +136,7 @@ MedSquare Web
             function alerta(){
                 alert(sessionStorage.getItem("autosave"));
             };
-            function showVolume(){
-                //alert(sessionStorage.getItem("volumePath"));                
+            function showVolume(){             
                 volume=new X.volume();
                 volume.file=sessionStorage.getItem("volumePath");
                 updateGUI();
@@ -146,16 +145,11 @@ MedSquare Web
                     threeD = new X.renderer3D();
                     threeD.container = '3Dslice';
                     threeD.init();
-                //threeD.add(volume);
                 }
                 sliceAxial.add(volume);
                 sliceAxial.render();                
             }
-            //window.onload = function() {
-            
-            //window.parent.
-            
-            
+           
             // try to create the 3D renderer            
             _webGLFriendly = sessionStorage.getItem("webGL");
             try {
@@ -164,10 +158,8 @@ MedSquare Web
                 threeD.container = '3Dslice';
                 threeD.init();
             } catch (Exception) {
-
                 // no webgl on this machine
                 _webGLFriendly = false;
-
             }
             
             // create the 2D renderers
@@ -211,10 +203,10 @@ MedSquare Web
             
             //slices controls
             guiAxial=foldNavigation.add(volume, 'indexZ',0,
-                volume.dimensions[2]-1).name('XY');//.__color("#ff0000");
+                volume.dimensions[2]-1).name('XY');
                         
             guiSagital=foldNavigation.add(volume, 'indexX',0,
-                volume.dimensions[0]-1).name('YZ');//.background-color("#ff0000");
+                volume.dimensions[0]-1).name('YZ');
             guiCoronal=foldNavigation.add(volume, 'indexY',0,
                 volume.dimensions[1]-1).name('XZ');
             
@@ -262,7 +254,6 @@ MedSquare Web
             //update all GUI controls created with dat-gui
             function updateGUI(){
                 //setting max values to the index of slices and the current index
-                //alert(volume.indexZ);!!!!!BUG???? .max dont put a value major than the previous max, mmm, nop, si coloca el tamaño, 
                 //the volume can't move to higher values
                 guiAxial.max(volume.dimensions[2]-1);
                 guiAxial.setValue(volume.indexZ);
@@ -271,7 +262,6 @@ MedSquare Web
                 
                 var minv=volume.min;
                 var maxv=volume.max;
-                //alert(maxv);
                 //setting the max and min values for the window level controls
                 guiLowerThresholdController.min(minv).max(maxv).setValue(minv);
                 guiUpperThresholdController.min(minv).max(maxv).setValue(maxv);
@@ -299,15 +289,12 @@ MedSquare Web
                     threeD = new X.renderer3D();
                     threeD.container = '3Dslice';
                     threeD.init();
-                //threeD.add(volume);
                 }
                 sliceAxial.add(volume);
                 
                 sliceAxial.render();                
             }; 
-            
-            
-            //};
+
             </script>
     </body>
 </html>
