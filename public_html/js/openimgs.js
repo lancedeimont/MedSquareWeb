@@ -14,12 +14,19 @@ $(function() {
     $('#angioMRI').click(function() {
         loadWebFile('data/marcel_angio.nii');
     });
-    $('.webImage').click(function() {
+    $('.webImage').click(function() {//load the MPR mode
         parent.loadMPRmode();
     });
     $('#btnLoad').click(function() {
-        alert($('txtboxURL').val());
-        loadWebFile($('txtboxURL').val());
+        loadWebFile($('#txtboxURL').val());
+        //load the MPR mode
+        try {
+            parent.loadMPRmode();
+        } catch (err)
+        {
+            window.write("error loading file");
+        }
+
     });
 });
 
