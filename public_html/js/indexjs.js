@@ -2,7 +2,7 @@ function loadMPRmode() {
     if (mode !== 0)//it is not in mpr mode
     {
         var ifrm = document.getElementById("frVisualiz");
-        ifrm.setAttribute("src", "visualization.html");
+        ifrm.setAttribute("src", "MPRView.html");
         mode = 0;
         $("#btnMPR").hide();
         $("#btnMosaic").show();
@@ -11,7 +11,7 @@ function loadMPRmode() {
 $(function() {
     $("#btnOpen").button().click(function() {
         var ifrm = document.getElementById("frVisualiz");
-        ifrm.setAttribute("src", "openImg.html");
+        ifrm.setAttribute("src", "openImage.html");
         mode = -1;
         //show buttons in the menu
         $("#btnMosaic").show();
