@@ -28,26 +28,32 @@ test("loadWebFile",function(){
     ok(loadParammeter("volumePath")=="path","Passed!")
 })
 
-test("checkFile",function(){
-    var txt="arquivo.nii";
-    var r=checkFile(txt);
-    ok(r==true,"Passed file "+txt+"!");
-    txt="arquivo.bmp";
-    ok(checkFile(txt)==false,"Passed for file"+txt+"!");
-})
+//test("checkFile",function(){
+//    var txt="arquivo.nii";
+//    var r=checkFile(txt);
+//    ok(r==true,"Passed file "+txt+"!");
+//    txt="arquivo.bmp";
+//    ok(checkFile(txt)==false,"Passed for file"+txt+"!");
+//})
 
-test("indexOfSlices",function(){
+//test("indexOfSlices",function(){
     
     
-})
+//})
 
-test("checkLength",function(){
-    var rows =$( "#rows" )
-    ok(checkLength( rows, "rows", 1, 3 ));
-});
+//test("checkLength",function(){
+//    var rows =$( "#rows" )
+//    ok(checkLength( rows, "rows", 1, 3 ));
+//});
 
 test( "load file", function(){
     var file='http://x.babymri.org/?vol.nrrd'
     loadWebFile(file); 
     ok( file==sessionStorage.getItem("volumePath") ,"Passed!");
 });
+
+//test("create Renderer",function()
+//{ não pode ser criado porque para criar um render precisa de um container (GUI)
+//    volumet = new X.volume();
+//    create2DRender
+//});
