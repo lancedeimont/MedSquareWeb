@@ -15,6 +15,27 @@ test("sliceIndex",function(){
     ok(sliceIndex(4, 2, 4, 3, 1, 12)==10,"Passed!");
 })
 
+
+test("loadParammeters",function(){
+    sessionStorage.setItem("test", "testValue");    
+    sessionStorage.setItem("test2", 12345);    
+    ok(loadParammeter("test2")=="12345","Passed!");
+    ok(loadParammeter("test")==="testValue","Passed!");    
+})
+
+test("loadWebFile",function(){
+    loadWebFile("path");
+    ok(loadParammeter("volumePath")=="path","Passed!")
+})
+
+test("checkFile",function(){
+    var txt="arquivo.nii";
+    var r=checkFile(txt);
+    ok(r==true,"Passed file "+txt+"!");
+    txt="arquivo.bmp";
+    ok(checkFile(txt)==false,"Passed for file"+txt+"!");
+})
+
 test("indexOfSlices",function(){
     
     

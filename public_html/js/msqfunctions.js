@@ -40,11 +40,11 @@ function checkFile(fileName) {
         fileExtension = fileName.value.substring(fileName.value.lastIndexOf(".") + 1,
                 fileName.value.length);
     }
-    if (fileExtension == "gif") {
+    if (fileExtension == "nii") {
         return true;
     }
     else {
-        alert("You must select a GIF file for upload");
+        alert("You must select a NII file for upload");
         return false;
     }
 }

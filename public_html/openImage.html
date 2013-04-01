@@ -34,6 +34,13 @@
             </div>
         </div>
         <div class="container">
+            <div style="width: 100%; clear: left">
+                    <form>
+                        <span>Load image from URL</span>
+                        <input type="text" id="txtboxURL">
+                        <input type="button" id="btnLoad" value="Load">
+                    </form>
+                </div>
             <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
                 <!-- Redirect browsers with JavaScript disabled to the origin page -->
                 <noscript><input type="hidden" name="redirect" value="http://blueimp.github.com/jQuery-File-Upload/"></noscript>
@@ -117,13 +124,7 @@
 
                 <br/>
 
-                <div style="width: 100%; clear: left">
-                    <form>
-                        <span>Load image from URL</span>
-                        <input type="text" id="txtboxURL">
-                        <input type="button" id="btnLoad" value="Load">
-                    </form>
-                </div>
+                
             </div>
         </div>
         <!-- The template to display files available for upload -->
