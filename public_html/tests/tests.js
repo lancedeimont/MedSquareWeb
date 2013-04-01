@@ -15,6 +15,19 @@ test("sliceIndex",function(){
     ok(sliceIndex(4, 2, 4, 3, 1, 12)==10,"Passed!");
 })
 
+test("checkFile",function(){
+    var txt="arquivo.nii";
+    var imput=document.createElement('input');
+    imput.setAttribute("type","text");
+    imput.setAttribute("value",txt);
+        
+    var r=checkFile(imput);
+    ok(r==true,"Passed file "+txt+"!");
+    
+    txt="arquivo.bmp";
+    imput.setAttribute("value",txt);
+    ok(checkFile(imput)==false,"Passed for file"+txt+"!");
+})
 
 test("loadParammeters",function(){
     sessionStorage.setItem("test", "testValue");    
