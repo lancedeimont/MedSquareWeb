@@ -1,6 +1,6 @@
-
+//create containers for all the renderers in the mosaic view
 function createDivs(nrow, ncol) 
-{//createDivs(rows,columns);
+{
     widthDiv = $(window).width() / ncol;
     //-100 because the header
     heightDiv = ($(window).height() - 100) / nrow;
@@ -31,6 +31,7 @@ function createDivs(nrow, ncol)
     }).appendTo('#mosaicDiv');
 }
 
+//create renderers for each one of the divs
 function createRenderers(nrow, ncol)
 {
     var sizeVolume = volumet.dimensions[norientation];
@@ -51,6 +52,9 @@ function createRenderers(nrow, ncol)
             }
         }
 }
+
+//create one render, given the container and the index of the slice that
+//this render will show
 function create2DRender(container, index)
 {
     slicet.container = container;
@@ -69,6 +73,7 @@ function create2DRender(container, index)
     return slicet;
 }
 
+//call the render function of each one of the renderers created
 function renderSlices() {
     for (var j = 0; j < rows; j++)
         for (var i = 0; i < columns; i++)//FIXME i< .. +1?

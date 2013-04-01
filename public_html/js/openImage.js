@@ -1,4 +1,5 @@
 $(function() {
+    //function that waits for clicks in the images, they are saving the URL for each image
     $('#MRIchild').click(function() {
         loadWebFile('http://x.babymri.org/?vol.nrrd');
     });

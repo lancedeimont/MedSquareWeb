@@ -1,7 +1,4 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+//review if the length of the objects (o) value has a allowed length
 function checkLength(o, n, min, max) {
     if (o.val().length > max || o.val().length < min) {
         o.addClass("ui-state-error");
@@ -30,10 +27,12 @@ function sliceIndex(x, y, ny, nx, gap, volumDimens)
     return indx;
 }
 
+//get the value of a parammeter in the session storage
 function loadParammeter(v) {
     return sessionStorage.getItem(v);
 }
 
+//review if the fileName ends in the default extensions
 function checkFile(fileName) {
     var fileExtension = "";
     if (fileName.value.lastIndexOf(".") > 0) {
@@ -57,6 +56,7 @@ function loadWebFile(filePath) {
     sessionStorage.setItem("volumePath", filePath);
 }
 
+//review if the value of the object (o) match the given regexp
 function checkRegexp(o, regexp, n) {
     if (!(regexp.test(o.val()))) {
         o.addClass("ui-state-error");

@@ -1,3 +1,4 @@
+//load de MPR mode
 function loadMPRmode() {
     if (mode !== 0)//it is not in mpr mode
     {
@@ -8,6 +9,8 @@ function loadMPRmode() {
         $("#btnMosaic").show();
     }
 }
+
+//events click in the buttons
 $(function() {
     $("#btnOpen").button().click(function() {
         var ifrm = document.getElementById("frVisualiz");
@@ -95,6 +98,7 @@ $(function() {
     });
 
 
+    //when a click in the checkbox is maded para deshabilitar o control
     $("#automaticCB").click(function() {
 
         if ($("#automaticCB").is(":checked"))

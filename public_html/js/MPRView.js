@@ -1,7 +1,9 @@
+
 function alerta() {
     alert(sessionStorage.getItem("autosave"));
 }
-;
+
+//change of the volume in the renderers by the path saved in the sessionStorage
 function showVolume() {
     volume = new X.volume();
     volume.file = sessionStorage.getItem("volumePath");
@@ -33,7 +35,8 @@ function updateGUI() {
     guiLowerWindowController.min(minv).max(maxv).setValue(minv);
     guiUpperWindowController.min(minv).max(maxv).setValue(maxv);
 }
-;
+
+//Functions of click in some buttons
 $("#btnOpen").click(function() {
     loadFileImage();
 });
@@ -41,6 +44,7 @@ $("#btnUpdate").click(function() {
     updateGUI();
 });
 
+//Load a file image by default, it is called when index.html is called
 function loadFileImage() {
     volume = new X.volume();
     volume.file = 'http://x.babymri.org/?vol.nrrd';//'data/vessels.nii';                
@@ -59,8 +63,8 @@ function loadFileImage() {
 
     sliceAxial.render();
 }
-;
 
+//build the controls to manipulate the volume
 function buildGUI()
 {
     //building the interfaces
@@ -104,6 +108,7 @@ function buildGUI()
     foldOther.open();
 }
 
+//create and initialize 2D renderers 
 function initializeSlices()
 {
     // create the 2D renderers
@@ -125,13 +130,10 @@ function initializeSlices()
     sliceCoronal.init();
 }
 
-function redrawAll() {
-    //
-    // add the volume to the other 3 renderers
-    //
+// add the volume to the other 3 renderers
+function redrawAll() {    
     sliceSagittal.add(volume);
     sliceCoronal.add(volume);
-
 
     if (_webGLFriendly) {
         threeD.add(volume);
