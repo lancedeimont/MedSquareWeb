@@ -56,9 +56,17 @@ test("create Renderer",function()
     sessionStorage.setItem('volumePath','data/sivT1.nii');   
     slicet = new X.renderer2D();
     index=0;
-    var rend=create2DRender('divTests',index);
-    alert(volumet.indexZ);
-    ok(volumet.indexZ==index,"Passed!");
-    rend.render();
-    
+    var rend=create2DRender('divTests',index);    
+    ok(volumet.indexZ==index,"Passed!");    
+    rend.render();    
+});
+
+//we are aproveitting the data created in the previous test
+test("initializeSlices", function(){    
+    initializeSlices();
+    ok(sliceAxial.orientation == 'Z',"Passed!");
+    ok(sliceCoronal.orientation == 'Y',"Passed!");
+  //  slicet.onShowtime = function() {
+  //              redrawAll();                
+  //          };
 });

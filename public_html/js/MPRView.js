@@ -36,13 +36,6 @@ function updateGUI() {
     guiUpperWindowController.min(minv).max(maxv).setValue(maxv);
 }
 
-//Functions of click in some buttons
-$("#btnOpen").click(function() {
-    loadFileImage();
-});
-$("#btnUpdate").click(function() {
-    updateGUI();
-});
 
 //Load a file image by default, it is called when index.html is called
 function loadFileImage() {

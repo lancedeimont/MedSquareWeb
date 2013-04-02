@@ -14,18 +14,29 @@ and open the template in the editor.
         <script src="js/msqfunctions.js"></script>
         <script type="text/javascript" src="libs/xtk.js"></script>
         <script type="text/javascript" src="js/MosaicView.js"></script>
+        <script type="text/javascript" src="js/MPRView.js"></script>
         <script>
             volumet = new X.volume();
-            orientation="Z";
-            volumes = [];
+            orientation = "Z";
+            volumes = [];           
         </script>
     </head>
     <body>
         <div>
-        <div id="qunit">
+            <div id="qunit">
+            </div>
+            <div id="qunit-fixture" style="width: 100%"></div>
         </div>
-        <div id="qunit-fixture" style="width: 100%"></div>
+        <div id="divTests">
+            <div id="axialSlice" hidden="hidden" class="slice-2D axial">
+                <span>XY</span>
+            </div>
+            <div id="sagitalSlice" hidden="hidden" class="slice-2D sagittal">
+                <span>YZ</span>
+            </div>
+            <div id="coronalSlice" hidden="hidden" class="slice-2D coronal">
+                <span>XZ</span>
+            </div>
         </div>
-        <div id="divTests"></div>
     </body>
 </html>
