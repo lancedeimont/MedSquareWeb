@@ -12,6 +12,13 @@ and open the template in the editor.
         <script src="libs/qunit-1.11.0.js"></script>
         <script src="tests/tests.js"></script>
         <script src="js/msqfunctions.js"></script>
+        <script type="text/javascript" src="libs/xtk.js"></script>
+        <script type="text/javascript" src="js/MosaicView.js"></script>
+        <script>
+            volumet = new X.volume();
+            orientation="Z";
+            volumes = [];
+        </script>
     </head>
     <body>
         <div>
@@ -19,5 +26,6 @@ and open the template in the editor.
         </div>
         <div id="qunit-fixture" style="width: 100%"></div>
         </div>
+        <div id="divTests"></div>
     </body>
 </html>

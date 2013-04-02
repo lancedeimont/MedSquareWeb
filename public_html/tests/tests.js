@@ -48,9 +48,17 @@ test( "load file", function(){
     ok( file==sessionStorage.getItem("volumePath") ,"Passed!");
 });
 
-//não pode ser criado porque para criar um render precisa de um container (GUI)
-//test("create Renderer",function()
-//{ 
-//    volumet = new X.volume();
-//    create2DRender
-//});
+test("create Renderer",function()
+{ 
+    var divcont=document.createElement('div');
+    divcont.setAttribute('name','divCont');
+    
+    sessionStorage.setItem('volumePath','data/sivT1.nii');   
+    slicet = new X.renderer2D();
+    index=0;
+    var rend=create2DRender('divTests',index);
+    alert(volumet.indexZ);
+    ok(volumet.indexZ==index,"Passed!");
+    rend.render();
+    
+});
