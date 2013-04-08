@@ -1,4 +1,4 @@
-/*global publish:true*/
+
 /** 
  * @project MedSquareWeb
  * @author Miguel Angel Galarreta Valverde
@@ -31,7 +31,7 @@ function checkLength(o, n, min, max) {
  * @param {type} nx - columns number
  * @param {type} gap - gapping between two slices
  * @param {type} volumDimens - number of slices in the volume
- * @returns {unresolved}
+ * @returns {Int}
  */
 function sliceIndex(x, y, ny, nx, gap, volumDimens)
 {

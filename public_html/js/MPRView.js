@@ -1,9 +1,16 @@
-
-function alerta() {
+/**
+ * shows an alert
+ * @returns {void}
+ */
+function xalerta() {
     alert(sessionStorage.getItem("autosave"));
 }
 
-//change of the volume in the renderers by the path saved in the sessionStorage
+
+/**
+ * change of the volume in the renderers by the path saved in the sessionStorage 
+ * @returns {void}
+ */
 function showVolume() {
     volume = new X.volume();
     volume.file = sessionStorage.getItem("volumePath");
@@ -18,7 +25,10 @@ function showVolume() {
     sliceAxial.render();
 }
 
-//update all GUI controls created with dat-gui
+/**
+ * update all GUI controls created with dat-gui
+ * @returns {void}
+ */
 function updateGUI() {
     //setting max values to the index of slices and the current index
     //the volume can't move to higher values
@@ -36,8 +46,10 @@ function updateGUI() {
     guiUpperWindowController.min(minv).max(maxv).setValue(maxv);
 }
 
-
-//Load a file image by default, it is called when index.html is called
+/**
+ * Load a file image by default, it is called when index.html is called
+ * @returns {void}
+ */
 function loadFileImage() {
     volume = new X.volume();
     volume.file = 'http://x.babymri.org/?vol.nrrd';//'data/vessels.nii';                
@@ -57,7 +69,10 @@ function loadFileImage() {
     sliceAxial.render();
 }
 
-//build the controls to manipulate the volume
+/**
+ * build the controls to manipulate the volume
+ * @returns {void}
+ */
 function buildGUI()
 {
     //building the interfaces
@@ -101,7 +116,10 @@ function buildGUI()
     foldOther.open();
 }
 
-//create and initialize 2D renderers 
+/**
+ * create and initialize 2D renderers 
+ * @returns {void}
+ */
 function initializeSlices()
 {
     // create the 2D renderers
@@ -123,7 +141,10 @@ function initializeSlices()
     sliceCoronal.init();
 }
 
-// add the volume to the other 3 renderers
+/**
+ * add the volume to the other 3 renderers
+ * @returns {void}
+ */
 function redrawAll() {    
     sliceSagittal.add(volume);
     sliceCoronal.add(volume);

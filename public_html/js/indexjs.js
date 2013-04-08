@@ -1,4 +1,9 @@
-//load de MPR mode
+
+
+/**
+ * load the MPR mode
+ * @returns {void}
+ */
 function loadMPRmode() {
     if (mode !== 0)//it is not in mpr mode
     {
@@ -10,9 +15,17 @@ function loadMPRmode() {
     }
 }
 
-//events click in the buttons
+/**
+ * events click in the buttons 
+ * @returns {void}
+ */
 $(function() {
-    $("#btnOpen").button().click(function() {
+    
+    $("#btnOpen").button().click(
+            /**
+             * load the catalog mode
+             * @returns {void}
+             */function() {
         var ifrm = document.getElementById("frVisualiz");
         ifrm.setAttribute("src", "openImage.html");
         mode = -1;

@@ -8,5 +8,5 @@ if [ ! -d $destiny ]; then
 fi
 #echo "hola's"
 #instruction with the form: libJsdoc --destination=./jsdoc/
-#~/libs/jsdoc/jsdoc -d "$destiny" -r $pathjs
-~/libs/jsdoc/jsdoc --verbose -d "$destiny" -r ~/programacion/netbeans/MedSquare/public_html/js/msqfunctions.js
+~/libs/jsdoc/jsdoc -d "$destiny" -r $pathjs
+#~/libs/jsdoc/jsdoc --verbose -d "$destiny" -r ~/programacion/netbeans/MedSquare/public_html/js/msqfunctions.js
