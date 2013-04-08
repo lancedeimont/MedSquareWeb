@@ -1,4 +1,17 @@
-//review if the length of the objects (o) value has a allowed length
+/*global publish:true*/
+/** 
+ * @project MedSquareWeb
+ * @author Miguel Angel Galarreta Valverde
+*/ 
+
+/**
+ * review if the length of the objects (o) value has a allowed length
+ * @param {type} o
+ * @param {type} n
+ * @param {type} min
+ * @param {type} max
+ * @returns {Boolean}
+ */
 function checkLength(o, n, min, max) {
     if (o.val().length > max || o.val().length < min) {
         o.addClass("ui-state-error");
@@ -10,7 +23,7 @@ function checkLength(o, n, min, max) {
     }
 }
 
-//returns an index that represent the slice number, given his position            
+/**returns an index that represent the slice number, given his position*/         
 function sliceIndex(x, y, ny, nx, gap, volumDimens)
 {
     var indx = 0;
@@ -27,12 +40,12 @@ function sliceIndex(x, y, ny, nx, gap, volumDimens)
     return indx;
 }
 
-//get the value of a parammeter in the session storage
+/**get the value of a parammeter in the session storage*/
 function loadParammeter(v) {
     return sessionStorage.getItem(v);
 }
 
-//review if the fileName ends in the default extensions
+/**review if the fileName ends in the default extensions*/
 function checkFile(fileName) {
     var fileExtension = "";
     if (fileName.value.lastIndexOf(".") > 0) {
@@ -48,7 +61,7 @@ function checkFile(fileName) {
     }
 }
 
-//loads an image saved in the server
+/**loads an image saved in the server*/
 function loadWebFile(filePath) {
     //volume=new X.volume();
     //volume.file = filePath;
@@ -56,7 +69,7 @@ function loadWebFile(filePath) {
     sessionStorage.setItem("volumePath", filePath);
 }
 
-//review if the value of the object (o) match the given regexp
+/**review if the value of the object (o) match the given regexp*/
 function checkRegexp(o, regexp, n) {
     if (!(regexp.test(o.val()))) {
         o.addClass("ui-state-error");
