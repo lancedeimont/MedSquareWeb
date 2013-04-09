@@ -52,7 +52,10 @@ $(function() {
     });
 });
 
-//functions to show the mosaic dialog
+/**
+ * functions to show the mosaic dialog
+ * @returns {void}
+ */
 $(function() {
     var rows = $("#rows"),
             columns = $("#columns"),
@@ -64,6 +67,10 @@ $(function() {
         width: 400,
         modal: true,
         buttons: {
+            /**
+             * open mosaic dialog and load mosaic mode if all is right
+             * @returns {void}
+             */
             "Start mosaic mode": function() {
                 var bValid = true;
                 allFields.removeClass("ui-state-error");
@@ -100,18 +107,27 @@ $(function() {
                     alert('The values must to be numbers');
                 }
             },
+                    /**
+                     * cancel and close the mosaic dialog
+                     * @returns {void}
+                     */
             Cancel: function() {
                 $(this).dialog("close");
             }
         },
+                /**
+                 * close the mosaic dialog
+                 * @returns {void}
+                 */
         close: function() {
             allFields.val("").removeClass("ui-state-error");
         }
 
     });
-
-
-    //when a click in the checkbox is maded para deshabilitar o control
+    
+    /**
+     * @event when a click in the checkbox is maded para deshabilitar o control
+     */
     $("#automaticCB").click(function() {
 
         if ($("#automaticCB").is(":checked"))
