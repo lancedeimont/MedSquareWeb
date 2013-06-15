@@ -33,7 +33,7 @@ $(function() {
         $("#btnMosaic").show();
         $("#btnMPR").show();
     });
-    $("#btnMPR").button().click(function() {
+    $("#btnMPR").click(function() {
         loadMPRmode();
     });
     $("#btnMosaic").button().click(function() {
